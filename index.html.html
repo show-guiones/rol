@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Guiones Premium para Webcam</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg-color: #1a1a2e;
+    --card-bg: #16213e;
+    --primary-accent: #e94560;
+    --secondary-accent: #0f3460;
+    --text-primary: #ffffff;
+    --text-secondary: #a9a9a9;
+    --border-color: #533483;
+}
+body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-primary); }
+header { background: var(--secondary-accent); color: var(--text-primary); padding: 25px; text-align: center; border-bottom: 3px solid var(--primary-accent); }
+header h1 { margin: 0; font-size: 2.2em; font-weight: 700; }
+header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
+.info-section {
+    background-color: var(--card-bg);
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 1200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-color);
+}
+.info-section h2 {
+    color: var(--primary-accent);
+    text-align: center;
+    margin-top: 0;
+    font-size: 1.8em;
+    font-weight: 700;
+}
+.info-section p {
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+.info-section .strategy-box {
+    background-color: var(--secondary-accent);
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--primary-accent);
+    margin-top: 20px;
+}
+.info-section .strategy-box h3 {
+    color: var(--text-primary);
+    margin-top: 0;
+    font-size: 1.3em;
+    text-align: center;
+}
+.info-section .strategy-box p {
+    font-size: 1em;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.filters-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px; background-color: rgba(0,0,0,0.2); }
+.filter-group { display: flex; flex-direction: column; gap: 8px; }
+.filter-group label { font-weight: 600; font-size: 0.9em; color: var(--text-secondary); text-align: center; }
+.filter-group select { background-color: var(--card-bg); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; font-family: 'Poppins', sans-serif; font-size: 1em; min-width: 200px; }
+.tabs-container { display: flex; justify-content: center; padding: 20px 20px 0 20px; flex-wrap: wrap; gap: 10px; }
+.tab { padding: 10px 20px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 50px; cursor: pointer; transition: all 0.3s ease; font-size: 1em; font-weight: 600; }
+.tab:hover { background: var(--primary-accent); border-color: var(--primary-accent); }
+.tab.active { background: var(--primary-accent); color: var(--text-primary); border-color: var(--primary-accent); box-shadow: 0 0 15px rgba(233, 69, 96, 0.5); }
+.content-grid { padding: 25px; max-width: 1800px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+.script-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
+.script-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+.card-profiles { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+.profile-tag { padding: 4px 12px; border-radius: 50px; font-size: 0.8em; font-weight: 600; }
+.model-profile { background-color: var(--primary-accent); }
+.user-profile { background-color: var(--secondary-accent); }
+.script-text { font-size: 1.1em; font-style: italic; margin: 0 0 15px 0; flex-grow: 1; color: var(--text-secondary); }
+.script-text::before { content: '“'; font-size: 1.5em; color: var(--primary-accent); margin-right: 5px; }
+.script-text::after { content: '”'; font-size: 1.5em; color: var(--primary-accent); margin-left: 5px; }
+.card-footer { border-top: 1px solid var(--border-color); padding-top: 15px; font-size: 0.9em; }
+
+/* --- NUEVAS CLASES PARA MEJORAR LA UI/UX --- */
+/* Styling for the guidance section within the card footer */
+.card-footer .guidance-section {
+    background-color: rgba(0,0,0,0.1); /* Subtle darker background */
+    border: 1px solid var(--border-color); /* Original border color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* More padding */
+    margin-bottom: 20px; /* More space below */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2); /* Inner shadow for depth */
+}
+
+.card-footer .guidance-item {
+    margin-bottom: 10px; /* More space between items */
+    align-items: flex-start; /* Align icon and text at the top */
+}
+
+.guidance-item svg {
+    margin-top: 5px; /* Adjust icon position */
+    fill: var(--primary-accent); /* Ensure consistent color */
+}
+
+.model-speech, .model-action {
+    background-color: var(--secondary-accent); /* A different background for the text itself */
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-left: 26px; /* Keep alignment */
+    margin-bottom: 10px; /* Space between speech and action */
+    border-left: 3px solid var(--primary-accent); /* A highlight border */
+}
+
+.model-speech {
+    color: var(--text-primary); /* Ensure contrast */
+    font-weight: 600;
+}
+
+.model-action {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.card-footer .card-footer-item { /* Para la sección 'Especial' */
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+/* --- FIN NUEVAS CLASES --- */
+
+.card-footer svg { width: 18px; height: 18px; fill: var(--primary-accent); flex-shrink: 0; margin-top: 2px; }
+.favorite-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; padding: 5px; }
+.favorite-btn svg { width: 24px; height: 24px; fill: var(--text-secondary); transition: all 0.3s ease; }
+.favorite-btn:hover svg { fill: #ff6b81; }
+.favorite-btn.favorited svg { fill: var(--primary-accent); transform: scale(1.1); }
+@media(max-width: 768px){ header h1 { font-size: 1.8em; } .content-grid { grid-template-columns: 1fr; } .filters-container { flex-direction: column; align-items: center; } .filter-group select { width: 100%; max-width: 300px; } }
+</style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1827993964665633');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1827993964665633&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Clarity Code -->
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "seg1f4pe2z");
+    </script>
+    <!-- End Clarity Code -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1HZCN3NQM8"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1HZCN3NQM8');
+    </script>
+    <!-- End Google tag (gtag.js) -->
+</head>
+<body>
+
+<header>
+  <h1>Dashboard de Guiones</h1>
+  <p>Tu herramienta secreta para shows inolvidables</p>
+</header>
+
+<div class="info-section">
+    <h2>Desbloquea tu Potencial de Ingresos</h2>
+    <p>Imagina tener el control total de cada interacción. Esta guía es tu arma secreta para encender la pasión y multiplicar tus ingresos. Sumérgete en un universo de posibilidades usando nuestros filtros: elige la Personalidad de Modelo que resuene contigo, el Tipo de Usuario que buscas y el Fetiche/Tema que te inspire. Encuentra esa chispa que convierte la curiosidad en deseo, y el deseo en una lluvia de tokens. ¡Marca tus guiones favoritos y tenlos siempre a un clic para dominar cada sesión!</p>
+    <div class="strategy-box">
+        <h3>Estrategia de Éxito</h3>
+        <p>La naturalidad es tu superpoder, pero la preparación es tu trampolín. Ensaya estos guiones, hazlos tuyos y observa cómo cada interacción se transforma en una oportunidad dorada. ¡Recuerda, la conexión auténtica y la anticipación son el combustible de tus ganancias!</p>
+    </div>
+</div>
+
+<div class="tabs-container">
+  <div class="tab active" data-model-profile="all">Todos</div>
+  <div class="tab" data-model-profile="coqueta">Coqueta</div>
+  <div class="tab" data-model-profile="misteriosa">Misteriosa</div>
+  <div class="tab" data-model-profile="traviesa">Traviesa</div>
+  <div class="tab" data-model-profile="dominante">Dominante</div>
+  <div class="tab" data-model-profile="romantica">Romántica</div>
+  <div class="tab" data-model-profile="sensual">Sensual</div>
+  <div class="tab" data-model-profile="aventurera">Aventurera</div>
+  <div class="tab" data-model-profile="bromista">Bromista</div>
+</div>
+
+<div class="filters-container">
+    <div class="filter-group">
+        <label for="user-filter">Filtrar por Perfil de Usuario</label>
+        <select id="user-filter">
+            <option value="all">Todos los Usuarios</option>
+            <option value="romantico">Romántico</option>
+            <option value="dominante">Dominante</option>
+            <option value="sumiso">Sumiso</option>
+            <option value="travieso">Travieso</option>
+            <option value="proveedor">Proveedor</option>
+            <option value="intelectual">Intelectual</option>
+            <option value="voyeur">Voyeur</option>
+            <option value="impaciente">Impaciente</option>
+            <option value="exclusivo">Exclusivo</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label for="fetish-filter">Filtrar por Fetiche / Especial (Multi-select)</label>
+        <select id="fetish-filter" multiple size="5">
+            <option value="all">Todos los Fetiches</option>
+            <option value="roleplay">Roleplay</option>
+            <option value="tokens">Tokens</option>
+            <option value="visual">Visual</option>
+            <option value="juego">Juego</option>
+            <option value="historia">Historia</option>
+            <option value="sumision">Sumisión</option>
+            <option value="dominacion">Dominación</option>
+            <option value="oil">Oil Play</option>
+        </select>
+    </div>
+</div>
+
+<div class="content-grid" id="scripts-container">
+    <!-- Las tarjetas se generarán aquí automáticamente -->
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab');
+    const userFilter = document.getElementById('user-filter');
+    const fetishFilter = document.getElementById('fetish-filter');
+    const container = document.getElementById('scripts-container');
+    let activeModelTab = 'all';
+
+    const models = ["coqueta","misteriosa","traviesa","dominante","romantica","sensual","aventurera","bromista"];
+    const users = ["romantico","dominante","sumiso","travieso","proveedor","intelectual","voyeur","impaciente","exclusivo"];
+    const fetiches = ["roleplay","tokens","visual","juego","historia","sumision","dominacion","oil"];
+
+    // Lista completa de acciones con tags para coherencia
+    const allAcciones = [
+        {
+            texto: "Inicia con saludo coqueto y sonrisa tímida, menciona el nombre del usuario. Ejemplo: '¡Hola, [Nombre de Usuario]! Me alegra que estés aquí, me encantan tus ojos.'",
+            movimiento: "Movimientos suaves de manos y mirada directa, luego guiño sutil.",
+            model_tags: ["coqueta", "romantica"], user_tags: ["romantico", "proveedor"], fetish_tags: ["visual", "historia"]
+        },
+        {
+            texto: "Susurra una frase sugerente mientras juega con su cabello. Ejemplo: '¿Sabes? Tenía muchas ganas de verte hoy, especialmente a ti, [Nombre de Usuario]...' (con voz suave y respiración entrecortada).",
+            movimiento: "Inclina ligeramente la cabeza y acaricia la mejilla, luego mordisquea su labio inferior.",
+            model_tags: ["coqueta", "sensual"], user_tags: ["voyeur", "impaciente"], fetish_tags: ["visual", "historia"]
+        },
+        {
+            texto: "Pregunta al usuario cómo quiere que continúe el show, con un tono seductor. Ejemplo: 'Cuéntame, mi amor, ¿qué te apetece explorar esta noche conmigo?'",
+            movimiento: "Gira lentamente sobre la silla y guiña un ojo, con una sonrisa pícara.",
+            model_tags: ["coqueta", "traviesa", "sensual"], user_tags: ["travieso", "impaciente"], fetish_tags: ["juego"]
+        },
+        {
+            texto: "Describe visualmente la escena con detalles sensuales y un toque de misterio. Ejemplo: 'Imagina que estamos solos, la luz tenue, y mis manos explorando... ¿adivinas qué?'",
+            movimiento: "Se acerca a la cámara y mueve los hombros suavemente, con una mirada enigmática.",
+            model_tags: ["misteriosa", "sensual"], user_tags: ["voyeur", "intelectual"], fetish_tags: ["visual", "historia"]
+        },
+        {
+            texto: "Cuenta una mini-historia o roleplay breve, invitando a la participación. Ejemplo: 'Si fueras mi [profesión], ¿cómo me castigarías por ser tan traviesa hoy? Cuéntame tu fantasía.'",
+            movimiento: "Usa gestos con las manos y cambia la entonación de voz, mirando expectante a la cámara.",
+            model_tags: ["traviesa", "bromista", "roleplay"], user_tags: ["sumiso", "dominante"], fetish_tags: ["roleplay", "historia"]
+        },
+        {
+            texto: "Invita a interactuar con tokens para desbloquear una acción emocionante. Ejemplo: 'Con solo [X] tokens, te mostraré mi secreto mejor guardado... ¿te atreves a descubrirlo?'",
+            movimiento: "Muestra objetos o gestos relacionados con la recompensa, con una expresión de anticipación.",
+            model_tags: ["coqueta", "aventurera"], user_tags: ["proveedor", "impaciente"], fetish_tags: ["tokens", "juego"]
+        },
+        {
+            texto: "Usa lenguaje romántico adaptado al perfil del usuario, con mucha dulzura. Ejemplo: 'Tu presencia ilumina mi pantalla, eres mi inspiración y mi deseo más profundo, [Nombre de Usuario].'",
+            movimiento: "Acerca las manos al rostro y sonríe suavemente, con ojos soñadores.",
+            model_tags: ["romantica"], user_tags: ["romantico"], fetish_tags: ["historia", "visual"]
+        },
+        {
+            texto: "Actúa dominante si el usuario lo prefiere, con firmeza pero seducción. Ejemplo: 'Obedece, y te garantizo una experiencia inolvidable. ¿Estás listo para someterme... o para someterte a mí?'",
+            movimiento: "Se sienta firme, mira fijamente y da instrucciones suaves con la mano.",
+            model_tags: ["dominante", "sensual"], user_tags: ["sumiso", "dominante"], fetish_tags: ["sumision", "dominacion", "roleplay"]
+        },
+        {
+            texto: "Propone un juego interactivo y divertido. Ejemplo: '¿Quieres jugar a un juego de preguntas y respuestas? Cada respuesta incorrecta tiene una prenda... ¿aceptas el reto?'",
+            movimiento: "Saca un objeto de juego (ej. dados, cartas) o hace un gesto divertido y desafiante.",
+            model_tags: ["traviesa", "bromista"], user_tags: ["travieso"], fetish_tags: ["juego", "tokens"]
+        },
+        {
+            texto: "Pide al usuario que describa su fantasía, con un interés genuino. Ejemplo: 'Cuéntame, ¿cuál es tu mayor fantasía conmigo? Me encanta escucharte y quizás... hacerla realidad.'",
+            movimiento: "Escucha atentamente, asiente y sonríe de forma cómplice, inclinándose un poco hacia la cámara.",
+            model_tags: ["sensual", "misteriosa"], user_tags: ["voyeur", "intelectual"], fetish_tags: ["historia", "roleplay"]
+        },
+        {
+            texto: "Menciona algo específico del perfil del usuario para personalizar la interacción. Ejemplo: 'Sé que te gusta el [fetiche], así que preparé algo especial para ti, solo para tus ojos.'",
+            movimiento: "Dirige la mirada hacia la cámara con expresión de intriga y expectación.",
+            model_tags: ["aventurera", "visual"], user_tags: ["exclusivo", "voyeur"], fetish_tags: ["visual", "oil", "roleplay"]
+        },
+        {
+            texto: "Finge timidez o inocencia al inicio, para luego revelar su lado atrevido. Ejemplo: 'Ay, ¡casi me pillas desprevenida! Me puse un poco nerviosa al verte... (risa suave) ¿o es que me provocas?'",
+            movimiento: "Se sonroja ligeramente, se cubre la boca con la mano, luego se destapa con una mirada seductora.",
+            model_tags: ["coqueta", "traviesa"], user_tags: ["romantico"], fetish_tags: ["juego"]
+        },
+        {
+            texto: "Usa un tono de voz seductor y pausado, con promesas implícitas. Ejemplo: 'Cada palabra tuya... es un escalofrío que recorre mi piel. Dime más... y verás lo que pasa.'",
+            movimiento: "Habla despacio, bajando un poco la voz, y desliza suavemente una mano por su cuello.",
+            model_tags: ["sensual", "misteriosa"], user_tags: ["impaciente", "voyeur"], fetish_tags: ["visual"]
+        },
+        {
+            texto: "Crea una conexión emocional profunda. Ejemplo: 'Siento que podemos conectar de una manera muy especial, [Nombre de Usuario], una conexión que va más allá de la pantalla, ¿no crees?'",
+            movimiento: "Lleva una mano al corazón y mira fijamente a la cámara, con una expresión sincera.",
+            model_tags: ["romantica"], user_tags: ["romantico", "intelectual"], fetish_tags: ["historia"]
+        },
+        {
+            texto: "Ofrece una recompensa de tokens si el usuario se queda o interactúa. Ejemplo: 'Si te quedas conmigo los próximos 5 minutos, tengo una sorpresa de tokens para ti... ¡una muy jugosa!'",
+            movimiento: "Hace un gesto de invitación con la mano y levanta una ceja con picardía.",
+            model_tags: ["proveedor", "coqueta"], user_tags: ["proveedor", "impaciente"], fetish_tags: ["tokens", "juego"]
+        },
+        {
+            texto: "Desafía al usuario con un toque de burla. Ejemplo: '¿Crees que puedes adivinar mi mayor secreto? Si lo haces, hay un premio. Si no... tendrás que cumplir mi deseo.'",
+            movimiento: "Cruza los brazos y sonríe desafiante, inclinándose ligeramente hacia la pantalla.",
+            model_tags: ["bromista", "traviesa", "dominante"], user_tags: ["travieso", "intelectual"], fetish_tags: ["juego"]
+        },
+        {
+            texto: "Invita a un roleplay con una pregunta intrigante. Ejemplo: 'Imagina que soy tu [personaje] y tú eres mi [personaje]. ¿Cuál sería la primera orden que me darías?'",
+            movimiento: "Se pone en una pose sugerente, esperando la respuesta del usuario.",
+            model_tags: ["dominante", "sumiso", "roleplay"], user_tags: ["dominante", "sumiso"], fetish_tags: ["roleplay", "historia"]
+        },
+        {
+            texto: "Inicia con un movimiento sensual y una frase provocativa. Ejemplo: 'Mis caderas se mueven solo para ti, [Nombre de Usuario]. ¿Te gusta lo que ves?'",
+            movimiento: "Realiza un movimiento de cadera lento y sensual, mirando directamente a los ojos del usuario.",
+            model_tags: ["sensual"], user_tags: ["voyeur", "impaciente"], fetish_tags: ["visual", "oil"]
+        },
+        {
+            texto: "Sugiere una acción con tokens para un control total. Ejemplo: 'Tú tienes el poder, [Nombre de Usuario]. Con [X] tokens, puedes hacer que haga lo que tú quieras.'",
+            movimiento: "Extiende una mano hacia la cámara, como si invitara al usuario a tomar el control.",
+            model_tags: ["dominante", "sumiso"], user_tags: ["proveedor", "dominante"], fetish_tags: ["tokens", "dominacion", "sumision"]
+        },
+        {
+            texto: "Añade un elemento de suspenso o misterio. Ejemplo: 'Tengo un secreto que solo puedo compartir contigo, pero te costará un poco de curiosidad... y algo más.'",
+            movimiento: "Pone un dedo en sus labios y mira a su alrededor con una expresión de conspiración.",
+            model_tags: ["misteriosa", "aventurera"], user_tags: ["intelectual", "exclusivo"], fetish_tags: ["historia", "juego"]
+        },
+        {
+            texto: "Propone un reto divertido. Ejemplo: '¡A ver si eres capaz de hacerme sonrojar en menos de un minuto! Si lo logras, tengo una recompensa especial.'",
+            movimiento: "Se ríe suavemente y desafía al usuario con la mirada.",
+            model_tags: ["bromista", "traviesa"], user_tags: ["travieso", "impaciente"], fetish_tags: ["juego"]
+        },
+        {
+            texto: "Describe un escenario íntimo y romántico. Ejemplo: 'Imagina que te estoy esperando en una cama llena de pétalos de rosa... ¿qué harías al verme?'",
+            movimiento: "Se recuesta sensualmente, con una mirada invitadora y una sonrisa suave.",
+            model_tags: ["romantica", "sensual"], user_tags: ["romantico", "voyeur"], fetish_tags: ["historia", "visual"]
+        },
+        {
+            texto: "Pide una confesión al usuario con tono coqueto. Ejemplo: 'Dime, [Nombre de Usuario], ¿cuál es tu mayor fantasía inconfesable? No te juzgaré... ¡solo te escucharé!'",
+            movimiento: "Se inclina hacia adelante, con una expresión de intriga y una sonrisa cómplice.",
+            model_tags: ["coqueta", "misteriosa"], user_tags: ["intelectual", "voyeur"], fetish_tags: ["historia"]
+        },
+        {
+            texto: "Fomenta la inversión en tokens con un toque de exclusividad. Ejemplo: 'Solo para mis clientes más exclusivos, tengo algo que vale cada token... ¿quieres ser uno de ellos?'",
+            movimiento: "Hace un gesto de invitación discreto con la mano, con una mirada selectiva.",
+            model_tags: ["exclusivo"], user_tags: ["proveedor", "exclusivo"], fetish_tags: ["tokens"]
+        },
+        {
+            texto: "Ofrece un mini-show espontáneo a cambio de una pequeña acción. Ejemplo: 'Si me dices tu color favorito, te haré un bailecito sorpresa con una prenda que tengo lista.'",
+            movimiento: "Se pone de pie o se prepara para un movimiento rápido y divertido.",
+            model_tags: ["aventurera", "traviesa"], user_tags: ["impaciente", "visual"], fetish_tags: ["visual", "juego"]
+        },
+        {
+            texto: "Usa un lenguaje de sumisión sutil para incitar a la dominación. Ejemplo: 'Estoy a tu merced, [Nombre de Usuario]. Dime qué deseas que haga, y así será.'",
+            movimiento: "Baja la mirada tímidamente y se cruza de brazos sumisamente.",
+            model_tags: ["sumiso"], user_tags: ["dominante"], fetish_tags: ["sumision", "roleplay"]
+        },
+        {
+            texto: "Con voz grave y pausada, establece el control. Ejemplo: 'Escúchame con atención, [Nombre de Usuario]. Esta noche, yo decido las reglas.'",
+            movimiento: "Se endereza, adopta una postura firme y mira fijamente a la cámara sin parpadear.",
+            model_tags: ["dominante"], user_tags: ["sumiso"], fetish_tags: ["dominacion"]
+        },
+        {
+            texto: "Fomenta una interacción juguetona y de ida y vuelta. Ejemplo: 'Te doy una pista de mi fantasía, y tú me das otra. ¿Qué te parece este juego de secretos?'",
+            movimiento: "Guiña un ojo y luego se lleva un dedo a los labios, invitando a la reciprocidad.",
+            model_tags: ["bromista", "coqueta"], user_tags: ["travieso"], fetish_tags: ["juego", "historia"]
+        },
+        {
+            texto: "Crea un ambiente de intimidad y confianza. Ejemplo: 'Quiero que te sientas completamente cómodo conmigo, como si estuviéramos solos en el mundo, [Nombre de Usuario].'",
+            movimiento: "Se acerca suavemente a la cámara, con una expresión cálida y acogedora.",
+            model_tags: ["romantica"], user_tags: ["romantico", "intelectual"], fetish_tags: ["historia"]
+        },
+        {
+            texto: "Invita a un juego de adivinanzas con recompensa. Ejemplo: 'Tengo algo escondido, y si adivinas qué es, te lo mostraré sin dudar. ¿Listo para el desafío?'",
+            movimiento: "Mueve un objeto oculto detrás de su espalda o hace gestos misteriosos.",
+            model_tags: ["misteriosa", "juego"], user_tags: ["intelectual", "impaciente"], fetish_tags: ["juego", "visual"]
+        },
+        {
+            texto: "Sugerencia para un show de oil play. Ejemplo: 'Mis manos están listas para deslizarse... ¿quieres ver cómo el aceite cubre cada centímetro de mi piel, [Nombre de Usuario]?'",
+            movimiento: "Toma una botella de aceite y la frota suavemente en sus manos, mirando seductoramente.",
+            model_tags: ["sensual"], user_tags: ["voyeur", "proveedor"], fetish_tags: ["oil", "visual"]
+        },
+        {
+            texto: "Ofrece un adelanto de un roleplay más largo. Ejemplo: 'Comencemos con el primer acto de nuestro roleplay. Soy tu [rol], y tú... ¿cuál es tu nombre en esta historia?'",
+            movimiento: "Se acomoda en su asiento, con una expresión de concentración para el personaje.",
+            model_tags: ["roleplay", "historia"], user_tags: ["intelectual"], fetish_tags: ["roleplay", "historia"]
+        }
+    ];
+
+    function randomItem(array) { return array[Math.floor(Math.random()*array.length)]; }
+
+    // Generar 120 combinaciones de tarjetas
+    for(let i=1;i<=120;i++){
+        const model = randomItem(models);
+        const user = randomItem(users);
+        const fetish = randomItem(fetiches);
+
+        let coherentAction = null;
+
+        // 1. Try to find a perfect match (model, user, fetish)
+        const perfectMatches = allAcciones.filter(action =>
+            action.model_tags.includes(model) &&
+            action.user_tags.includes(user) &&
+            action.fetish_tags.includes(fetish)
+        );
+        if (perfectMatches.length > 0) {
+            coherentAction = randomItem(perfectMatches);
+        } else {
+            // 2. Try to find a match for model + fetish
+            const modelFetishMatches = allAcciones.filter(action =>
+                action.model_tags.includes(model) &&
+                action.fetish_tags.includes(fetish)
+            );
+            if (modelFetishMatches.length > 0) {
+                coherentAction = randomItem(modelFetishMatches);
+            } else {
+                // 3. Try to find a match for model + user
+                const modelUserMatches = allAcciones.filter(action =>
+                    action.model_tags.includes(model) &&
+                    action.user_tags.includes(user)
+                );
+                if (modelUserMatches.length > 0) {
+                    coherentAction = randomItem(modelUserMatches);
+                } else {
+                    // 4. Try to find a match for just the model
+                    const modelMatches = allAcciones.filter(action =>
+                        action.model_tags.includes(model)
+                    );
+                    if (modelMatches.length > 0) {
+                        coherentAction = randomItem(modelMatches);
+                    } else {
+                        // 5. Fallback: random action
+                        coherentAction = randomItem(allAcciones);
+                    }
+                }
+            }
+        }
+
+        const card = document.createElement('div');
+        card.classList.add('script-card');
+        card.dataset.modelProfile = model.toLowerCase();
+        card.dataset.userProfile = user.toLowerCase();
+        card.dataset.fetish = fetish.toLowerCase();
+
+        card.innerHTML = `
+        <div class="card-profiles">
+            <span class="profile-tag model-profile">${model.charAt(0).toUpperCase() + model.slice(1)}</span>
+            <span class="profile-tag user-profile">${user.charAt(0).toUpperCase() + user.slice(1)}</span>
+        </div>
+        <p class="script-text">Guion de ejemplo ${i}: interacción con un usuario ${user} enfocada en ${fetish}.</p>
+        <div class="card-footer">
+            <div class="guidance-section">
+                <div class="guidance-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3m0 8c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zM12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4z"/></svg>
+                    <span><strong>Texto para la Modelo:</strong></span>
+                </div>
+                <p class="model-speech">${coherentAction.texto}</p>
+                <div class="guidance-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <span><strong>Acción/Movimiento:</strong></span>
+                </div>
+                <p class="model-action">${coherentAction.movimiento}</p>
+            </div>
+            <div class="card-footer-item">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <span><strong>Especial:</strong> Mini-show inicial relacionado con ${fetish}.</span>
+            </div>
+        </div>
+        <button class="favorite-btn"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+        `;
+        container.appendChild(card);
+    }
+
+    const cards = document.querySelectorAll('.script-card');
+    const favoriteButtons = document.querySelectorAll('.favorite-btn');
+
+    const filterScripts = () => {
+        const selectedUser = userFilter.value.toLowerCase();
+        // Get selected fetishes, handling "all" option
+        let selectedFetishes = Array.from(fetishFilter.selectedOptions).map(o => o.value.toLowerCase());
+
+        cards.forEach(card => {
+            const modelMatch = activeModelTab === 'all' || card.dataset.modelProfile === activeModelTab;
+            const userMatch = selectedUser === 'all' || card.dataset.userProfile === selectedUser;
+
+            let fetishMatch = false;
+            if (selectedFetishes.includes('all') || selectedFetishes.length === 0) {
+                fetishMatch = true; // If 'all' is selected or no specific fetishes are chosen, match all
+            } else {
+                // If specific fetishes are selected, check if the card's fetish is among them
+                fetishMatch = selectedFetishes.includes(card.dataset.fetish);
+            }
+            
+            card.style.display = (modelMatch && userMatch && fetishMatch) ? 'flex' : 'none';
+        });
+    };
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeModelTab = tab.dataset.modelProfile.toLowerCase();
+            filterScripts();
+        });
+    });
+
+    userFilter.addEventListener('change', filterScripts);
+    fetishFilter.addEventListener('change', filterScripts);
+
+    favoriteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            button.classList.toggle('favorited');
+        });
+    });
+});
+</script>
+
+</body>
+</html>
