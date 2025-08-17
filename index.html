@@ -132,6 +132,15 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
     gap: 8px;
     margin-bottom: 8px;
 }
+
+#no-results-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.2em;
+    margin-top: 50px;
+    display: none; /* Hidden by default */
+    grid-column: 1 / -1; /* Make it span all columns in the grid */
+}
 /* --- FIN NUEVAS CLASES --- */
 
 .card-footer svg { width: 18px; height: 18px; fill: var(--primary-accent); flex-shrink: 0; margin-top: 2px; }
@@ -242,6 +251,10 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
 
 <div class="content-grid" id="scripts-container">
     <!-- Las tarjetas se generarán aquí automáticamente -->
+    <div id="no-results-message" style="display: none;">
+        No se encontraron guiones con los filtros seleccionados.<br>
+        Intenta ajustar tus criterios de búsqueda.
+    </div>
 </div>
 
 <script>
@@ -249,7 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab');
     const userFilter = document.getElementById('user-filter');
     const fetishFilter = document.getElementById('fetish-filter');
-    const container = document.getElementById('scripts-container');
+    const scriptsContainer = document.getElementById('scripts-container');
+    const noResultsMessage = document.getElementById('no-results-message');
     let activeModelTab = 'all';
 
     const models = ["coqueta","misteriosa","traviesa","dominante","romantica","sensual","aventurera","bromista"];
@@ -420,17 +434,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    function randomItem(array) { return array[Math.floor(Math.random()*array.length)]; }
+    function randomItem(array) {
+        return array[Math.floor(Math.random()*array.length)];
+    }
 
-    // Generar 120 combinaciones de tarjetas
-    for(let i=1;i<=120;i++){
-        const model = randomItem(models);
-        const user = randomItem(users);
-        const fetish = randomItem(fetiches);
-
+    function getCoherentAction(model, user, fetish) {
         let coherentAction = null;
 
-        // 1. Try to find a perfect match (model, user, fetish)
+        // Prioridad 1: Match perfecto (modelo, usuario, fetiche)
         const perfectMatches = allAcciones.filter(action =>
             action.model_tags.includes(model) &&
             action.user_tags.includes(user) &&
@@ -439,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (perfectMatches.length > 0) {
             coherentAction = randomItem(perfectMatches);
         } else {
-            // 2. Try to find a match for model + fetish
+            // Prioridad 2: Match modelo + fetiche
             const modelFetishMatches = allAcciones.filter(action =>
                 action.model_tags.includes(model) &&
                 action.fetish_tags.includes(fetish)
@@ -447,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (modelFetishMatches.length > 0) {
                 coherentAction = randomItem(modelFetishMatches);
             } else {
-                // 3. Try to find a match for model + user
+                // Prioridad 3: Match modelo + usuario
                 const modelUserMatches = allAcciones.filter(action =>
                     action.model_tags.includes(model) &&
                     action.user_tags.includes(user)
@@ -455,96 +466,157 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (modelUserMatches.length > 0) {
                     coherentAction = randomItem(modelUserMatches);
                 } else {
-                    // 4. Try to find a match for just the model
+                    // Prioridad 4: Match solo modelo
                     const modelMatches = allAcciones.filter(action =>
                         action.model_tags.includes(model)
                     );
                     if (modelMatches.length > 0) {
                         coherentAction = randomItem(modelMatches);
                     } else {
-                        // 5. Fallback: random action
+                        // Último recurso: acción aleatoria de cualquier tipo
                         coherentAction = randomItem(allAcciones);
                     }
                 }
             }
         }
-
-        const card = document.createElement('div');
-        card.classList.add('script-card');
-        card.dataset.modelProfile = model.toLowerCase();
-        card.dataset.userProfile = user.toLowerCase();
-        card.dataset.fetish = fetish.toLowerCase();
-
-        card.innerHTML = `
-        <div class="card-profiles">
-            <span class="profile-tag model-profile">${model.charAt(0).toUpperCase() + model.slice(1)}</span>
-            <span class="profile-tag user-profile">${user.charAt(0).toUpperCase() + user.slice(1)}</span>
-        </div>
-        <p class="script-text">Guion de ejemplo ${i}: interacción con un usuario ${user} enfocada en ${fetish}.</p>
-        <div class="card-footer">
-            <div class="guidance-section">
-                <div class="guidance-item">
-                    <svg viewBox="0 0 24 24"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3m0 8c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zM12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4z"/></svg>
-                    <span><strong>Texto para la Modelo:</strong></span>
-                </div>
-                <p class="model-speech">${coherentAction.texto}</p>
-                <div class="guidance-item">
-                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                    <span><strong>Acción/Movimiento:</strong></span>
-                </div>
-                <p class="model-action">${coherentAction.movimiento}</p>
-            </div>
-            <div class="card-footer-item">
-                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <span><strong>Especial:</strong> Mini-show inicial relacionado con ${fetish}.</span>
-            </div>
-        </div>
-        <button class="favorite-btn"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-        `;
-        container.appendChild(card);
+        return coherentAction;
     }
 
-    const cards = document.querySelectorAll('.script-card');
-    const favoriteButtons = document.querySelectorAll('.favorite-btn');
+    function generateAllCards() {
+        // Clear existing cards first
+        scriptsContainer.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+
+        for(let i=1;i<=120;i++){
+            const model = randomItem(models);
+            const user = randomItem(users);
+            const fetish = randomItem(fetiches); // This fetish is for the card's data-attribute
+
+            const coherentAction = getCoherentAction(model, user, fetish); // Get an action based on tags
+
+            const card = document.createElement('div');
+            card.classList.add('script-card');
+            card.dataset.modelProfile = model.toLowerCase();
+            card.dataset.userProfile = user.toLowerCase();
+            card.dataset.fetish = fetish.toLowerCase(); // Assign the random fetish for filtering
+
+            card.innerHTML = `
+            <div class="card-profiles">
+                <span class="profile-tag model-profile">${model.charAt(0).toUpperCase() + model.slice(1)}</span>
+                <span class="profile-tag user-profile">${user.charAt(0).toUpperCase() + user.slice(1)}</span>
+            </div>
+            <p class="script-text">Guion de ejemplo ${i}: interacción con un usuario ${user} enfocada en ${fetish}.</p>
+            <div class="card-footer">
+                <div class="guidance-section">
+                    <div class="guidance-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3m0 8c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zM12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4z"/></svg>
+                        <span><strong>Texto para la Modelo:</strong></span>
+                    </div>
+                    <p class="model-speech">${coherentAction.texto}</p>
+                    <div class="guidance-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <span><strong>Acción/Movimiento:</strong></span>
+                    </div>
+                    <p class="model-action">${coherentAction.movimiento}</p>
+                </div>
+                <div class="card-footer-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <span><strong>Especial:</strong> Mini-show inicial relacionado con ${fetish}.</span>
+                </div>
+            </div>
+            <button class="favorite-btn"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+            `;
+            fragment.appendChild(card);
+        }
+        scriptsContainer.appendChild(fragment); // Append all cards at once
+        scriptsContainer.appendChild(noResultsMessage); // Re-append the message to keep it last
+    }
 
     const filterScripts = () => {
+        const currentCards = scriptsContainer.querySelectorAll('.script-card');
         const selectedUser = userFilter.value.toLowerCase();
-        // Get selected fetishes, handling "all" option
         let selectedFetishes = Array.from(fetishFilter.selectedOptions).map(o => o.value.toLowerCase());
 
-        cards.forEach(card => {
+        let visibleCardsCount = 0;
+        currentCards.forEach(card => {
             const modelMatch = activeModelTab === 'all' || card.dataset.modelProfile === activeModelTab;
             const userMatch = selectedUser === 'all' || card.dataset.userProfile === selectedUser;
 
             let fetishMatch = false;
+            // If "all" is selected for fetishes OR no specific fetishes are selected, it's a match
             if (selectedFetishes.includes('all') || selectedFetishes.length === 0) {
-                fetishMatch = true; // If 'all' is selected or no specific fetishes are chosen, match all
+                fetishMatch = true;
             } else {
-                // If specific fetishes are selected, check if the card's fetish is among them
+                // Otherwise, check if the card's fetish is in the selected list
                 fetishMatch = selectedFetishes.includes(card.dataset.fetish);
             }
             
-            card.style.display = (modelMatch && userMatch && fetishMatch) ? 'flex' : 'none';
+            if (modelMatch && userMatch && fetishMatch) {
+                card.style.display = 'flex';
+                visibleCardsCount++;
+            } else {
+                card.style.display = 'none';
+            }
         });
+
+        if (visibleCardsCount === 0) {
+            noResultsMessage.style.display = 'block';
+        } else {
+            noResultsMessage.style.display = 'none';
+        }
     };
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            activeModelTab = tab.dataset.modelProfile.toLowerCase();
+    function setupFilters() {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                activeModelTab = tab.dataset.modelProfile.toLowerCase();
+                filterScripts();
+            });
+        });
+
+        userFilter.addEventListener('change', filterScripts);
+
+        fetishFilter.addEventListener('change', (event) => {
+            const options = Array.from(fetishFilter.options);
+            const allOption = options.find(opt => opt.value === 'all');
+            
+            // If "all" was just selected
+            if (event.target.value === 'all' && event.target.selected) {
+                options.forEach(opt => {
+                    if (opt.value !== 'all') {
+                        opt.selected = false; // Deselect all other options
+                    }
+                });
+            } else {
+                // If any other option was selected, deselect "all"
+                if (allOption && allOption.selected) {
+                    allOption.selected = false;
+                }
+                // If nothing is selected, ensure 'all' is default visual (though not functionally selected until filterScripts runs)
+                if (Array.from(fetishFilter.selectedOptions).length === 0 && allOption) {
+                     allOption.selected = true; // Visually select "all" if everything else is deselected
+                }
+            }
             filterScripts();
         });
-    });
+    }
 
-    userFilter.addEventListener('change', filterScripts);
-    fetishFilter.addEventListener('change', filterScripts);
-
-    favoriteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            button.classList.toggle('favorited');
+    function setupFavoriteButtonsDelegation() {
+        scriptsContainer.addEventListener('click', (event) => {
+            let targetButton = event.target.closest('.favorite-btn');
+            if (targetButton) {
+                targetButton.classList.toggle('favorited');
+            }
         });
-    });
+    }
+
+    // Initial setup when the DOM is loaded
+    generateAllCards(); // Generate cards first
+    setupFilters(); // Set up all filter event listeners
+    setupFavoriteButtonsDelegation(); // Set up the single favorite button listener
+    filterScripts(); // Apply initial filters (e.g., "Todos" selected by default)
 });
 </script>
 
