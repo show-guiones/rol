@@ -7,22 +7,48 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
     --bg-color: #1a1a2e;
     --card-bg: #16213e;
-    --primary-accent: #e94560;
-    --secondary-accent: #0f3460;
+    --primary-accent: #e94560; /* Ruby Red */
+    --secondary-accent: #0f3460; /* Darker Blue */
     --text-primary: #ffffff;
     --text-secondary: #a9a9a9;
-    --border-color: #533483;
+    --border-color: #533483; /* Deep Purple */
+    --hover-accent: #ff6b81; /* Lighter Red for hover */
 }
-body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-primary); }
-header { background: var(--secondary-accent); color: var(--text-primary); padding: 25px; text-align: center; border-bottom: 3px solid var(--primary-accent); }
-header h1 { margin: 0; font-size: 2.2em; font-weight: 700; }
-header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+}
+header {
+    background: var(--secondary-accent);
+    color: var(--text-primary);
+    padding: 25px;
+    text-align: center;
+    border-bottom: 3px solid var(--primary-accent);
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-accent);
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+}
+header p {
+    margin: 5px 0 0;
+    font-size: 1.1em;
+    color: var(--text-secondary);
+}
 .info-section {
     background-color: var(--card-bg);
     margin: 20px auto;
@@ -36,8 +62,9 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
     color: var(--primary-accent);
     text-align: center;
     margin-top: 0;
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: 700;
+    font-family: 'Poppins', sans-serif;
 }
 .info-section p {
     text-align: center;
@@ -56,7 +83,8 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
 .info-section .strategy-box h3 {
     color: var(--text-primary);
     margin-top: 0;
-    font-size: 1.3em;
+    font-size: 1.4em;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
 }
 .info-section .strategy-box p {
@@ -66,16 +94,108 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
     margin-bottom: 0;
 }
 
-.filters-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px; background-color: rgba(0,0,0,0.2); }
-.filter-group { display: flex; flex-direction: column; gap: 8px; }
-.filter-group label { font-weight: 600; font-size: 0.9em; color: var(--text-secondary); text-align: center; }
-.filter-group select { background-color: var(--card-bg); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; font-family: 'Poppins', sans-serif; font-size: 1em; min-width: 200px; }
+.filters-container {
+    display: flex;
+    flex-direction: column; /* Stack filters vertically on small screens */
+    align-items: center; /* Center items */
+    gap: 20px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.2);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1; /* Allow groups to grow */
+    min-width: 200px; /* Minimum width for select boxes */
+}
+.filter-group label {
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--text-secondary);
+    text-align: center;
+}
+.filter-group select {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+    min-width: 200px;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e94560'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    cursor: pointer;
+}
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.3);
+}
+
 .tabs-container { display: flex; justify-content: center; padding: 20px 20px 0 20px; flex-wrap: wrap; gap: 10px; }
-.tab { padding: 10px 20px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 50px; cursor: pointer; transition: all 0.3s ease; font-size: 1em; font-weight: 600; }
+.tab {
+    padding: 10px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
 .tab:hover { background: var(--primary-accent); border-color: var(--primary-accent); }
 .tab.active { background: var(--primary-accent); color: var(--text-primary); border-color: var(--primary-accent); box-shadow: 0 0 15px rgba(233, 69, 96, 0.5); }
-.content-grid { padding: 25px; max-width: 1800px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
-.script-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
+
+.content-grid {
+    padding: 25px;
+    max-width: 1800px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+.script-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+    position: relative;
+    cursor: pointer;
+    opacity: 1;
+}
+.script-card.hidden-by-filter {
+    opacity: 0;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
 .script-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
 .card-profiles { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
 .profile-tag { padding: 4px 12px; border-radius: 50px; font-size: 0.8em; font-weight: 600; }
@@ -87,37 +207,41 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
 .card-footer { border-top: 1px solid var(--border-color); padding-top: 15px; font-size: 0.9em; }
 
 /* --- NUEVAS CLASES PARA MEJORAR LA UI/UX --- */
-/* Styling for the guidance section within the card footer */
 .card-footer .guidance-section {
-    background-color: rgba(0,0,0,0.1); /* Subtle darker background */
-    border: 1px solid var(--border-color); /* Original border color */
-    border-radius: 8px; /* Rounded corners */
-    padding: 15px; /* More padding */
-    margin-bottom: 20px; /* More space below */
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.2); /* Inner shadow for depth */
+    background-color: rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
 }
 
 .card-footer .guidance-item {
-    margin-bottom: 10px; /* More space between items */
-    align-items: flex-start; /* Align icon and text at the top */
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
 .guidance-item svg {
-    margin-top: 5px; /* Adjust icon position */
-    fill: var(--primary-accent); /* Ensure consistent color */
+    margin-top: 5px;
+    width: 20px; /* Larger icons */
+    height: 20px;
+    fill: var(--primary-accent);
+    flex-shrink: 0;
 }
 
 .model-speech, .model-action {
-    background-color: var(--secondary-accent); /* A different background for the text itself */
+    background-color: var(--secondary-accent);
     padding: 10px 15px;
     border-radius: 6px;
-    margin-left: 26px; /* Keep alignment */
-    margin-bottom: 10px; /* Space between speech and action */
-    border-left: 3px solid var(--primary-accent); /* A highlight border */
+    margin-left: 28px; /* Adjusted for larger icons */
+    margin-bottom: 10px;
+    border-left: 3px solid var(--primary-accent);
 }
 
 .model-speech {
-    color: var(--text-primary); /* Ensure contrast */
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -126,29 +250,333 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
     font-style: italic;
 }
 
-.card-footer .card-footer-item { /* Para la sección 'Especial' */
+.card-footer .card-footer-item {
     display: flex;
     align-items: flex-start;
     gap: 8px;
     margin-bottom: 8px;
 }
+.card-footer .card-footer-item svg {
+    width: 20px;
+    height: 20px;
+}
+
 
 #no-results-message {
     text-align: center;
     color: var(--text-secondary);
     font-size: 1.2em;
     margin-top: 50px;
-    display: none; /* Hidden by default */
-    grid-column: 1 / -1; /* Make it span all columns in the grid */
+    display: none;
+    grid-column: 1 / -1;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-color);
+    flex-direction: column;
+    align-items: center;
 }
-/* --- FIN NUEVAS CLASES --- */
+/* REMOVED: #no-results-message svg { ... } */
+#no-results-message p {
+    margin: 0;
+}
 
-.card-footer svg { width: 18px; height: 18px; fill: var(--primary-accent); flex-shrink: 0; margin-top: 2px; }
-.favorite-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; padding: 5px; }
-.favorite-btn svg { width: 24px; height: 24px; fill: var(--text-secondary); transition: all 0.3s ease; }
-.favorite-btn:hover svg { fill: #ff6b81; }
-.favorite-btn.favorited svg { fill: var(--primary-accent); transform: scale(1.1); }
-@media(max-width: 768px){ header h1 { font-size: 1.8em; } .content-grid { grid-template-columns: 1fr; } .filters-container { flex-direction: column; align-items: center; } .filter-group select { width: 100%; max-width: 300px; } }
+.click-hint {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--primary-accent);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    text-align: center;
+    margin-top: auto;
+    font-weight: 600;
+    border: 1px solid var(--primary-accent);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-top: 15px;
+}
+
+/* MODAL STYLES */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.85); /* Slightly darker overlay */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s forwards;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: auto;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: zoomIn 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+.close-button {
+    color: var(--text-secondary);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 38px; /* Slightly larger close button */
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--primary-accent);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    color: var(--primary-accent);
+    text-align: center;
+    margin-top: 0;
+    font-size: 2.2em; /* Slightly larger modal title */
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+}
+
+.modal-profile-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.modal-profile-tags .profile-tag {
+    font-size: 1.1em; /* Slightly larger tags */
+    padding: 8px 18px; /* More padding */
+}
+
+.full-script-text {
+    background-color: var(--secondary-accent);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 5px solid var(--primary-accent);
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+.full-script-text h3 {
+    color: var(--primary-accent);
+    margin-top: 0;
+    font-size: 1.5em; /* Larger h3 in modal */
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 15px;
+}
+
+.full-script-text p {
+    margin-bottom: 10px;
+}
+
+.full-script-text strong {
+    color: var(--text-primary);
+}
+
+.additional-guidance {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.1);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 1em; /* Slightly larger font */
+    line-height: 1.6;
+}
+
+.additional-guidance h3 {
+    color: var(--primary-accent);
+    margin-top: 0;
+    text-align: center;
+    font-size: 1.4em; /* Larger h3 in modal */
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 15px;
+}
+
+.modal-similar-scripts {
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 25px;
+}
+
+.modal-similar-scripts h3 {
+    color: var(--primary-accent);
+    text-align: center;
+    font-size: 1.6em; /* Larger h3 in modal */
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+}
+
+.similar-script-item {
+    background-color: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 3px solid var(--secondary-accent);
+}
+.similar-script-item:last-child {
+    margin-bottom: 0;
+}
+.similar-script-item p {
+    margin: 0 0 5px 0;
+    color: var(--text-secondary);
+}
+.similar-script-item strong {
+    color: var(--text-primary);
+}
+
+.copy-button {
+    background-color: var(--primary-accent);
+    color: var(--text-primary);
+    border: none;
+    padding: 12px 20px; /* Larger padding */
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 20px; /* More space */
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.copy-button:hover {
+    background-color: var(--hover-accent);
+    transform: translateY(-2px);
+}
+.copy-button:active {
+    background-color: #b73145;
+    transform: translateY(0);
+}
+
+/* Clear Filters Button */
+.clear-filters-btn {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    border: none;
+    padding: 12px 20px; /* Larger padding */
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-end; /* Align with filters at the bottom */
+}
+.clear-filters-btn:hover {
+    background-color: #6a499b;
+    transform: translateY(-2px);
+}
+.clear-filters-btn:active {
+    background-color: #533483;
+    transform: translateY(0);
+}
+
+/* Selected Fetishes Display */
+.selected-fetishes-display {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-secondary); /* Changed to secondary text color */
+    min-height: 20px;
+    padding: 0 10px; /* Add some padding */
+    line-height: 1.4;
+}
+.selected-fetishes-display span {
+    background-color: var(--primary-accent);
+    padding: 4px 10px; /* Slightly larger tags */
+    border-radius: 15px; /* More rounded */
+    margin: 2px 4px; /* Space them out */
+    display: inline-block;
+    font-size: 0.85em;
+    color: var(--text-primary);
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+    display: none;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.2em;
+    margin-top: 50px;
+    grid-column: 1 / -1;
+    padding: 20px;
+}
+.loading-indicator .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--primary-accent);
+    border-radius: 50%;
+    width: 35px; /* Slightly larger spinner */
+    height: 35px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Scroll to Top Button */
+#scroll-to-top-btn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    font-size: 28px; /* Larger icon */
+    background-color: var(--primary-accent);
+    color: white;
+    cursor: pointer;
+    padding: 12px 16px; /* Larger padding */
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* Stronger shadow */
+    transition: background-color 0.3s, transform 0.3s;
+}
+#scroll-to-top-btn:hover {
+    background-color: var(--hover-accent);
+    transform: translateY(-4px) scale(1.05); /* More pronounced hover effect */
+}
+#scroll-to-top-btn svg {
+    width: 24px; /* SVG size */
+    height: 24px;
+    fill: currentColor;
+    vertical-align: middle;
+}
+
+/* Modal Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
 </style>
 
     <!-- Meta Pixel Code -->
@@ -192,15 +620,15 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
 <body>
 
 <header>
-  <h1>Dashboard de Guiones</h1>
+  <h1>✨ Dashboard de Guiones ✨</h1>
   <p>Tu herramienta secreta para shows inolvidables</p>
 </header>
 
 <div class="info-section">
-    <h2>Desbloquea tu Potencial de Ingresos</h2>
+    <h2>🚀 Desbloquea tu Potencial de Ingresos</h2>
     <p>Imagina tener el control total de cada interacción. Esta guía es tu arma secreta para encender la pasión y multiplicar tus ingresos. Sumérgete en un universo de posibilidades usando nuestros filtros: elige la Personalidad de Modelo que resuene contigo, el Tipo de Usuario que buscas y el Fetiche/Tema que te inspire. Encuentra esa chispa que convierte la curiosidad en deseo, y el deseo en una lluvia de tokens. ¡Marca tus guiones favoritos y tenlos siempre a un clic para dominar cada sesión!</p>
     <div class="strategy-box">
-        <h3>Estrategia de Éxito</h3>
+        <h3>💡 Estrategia de Éxito</h3>
         <p>La naturalidad es tu superpoder, pero la preparación es tu trampolín. Ensaya estos guiones, hazlos tuyos y observa cómo cada interacción se transforma en una oportunidad dorada. ¡Recuerda, la conexión auténtica y la anticipación son el combustible de tus ganancias!</p>
     </div>
 </div>
@@ -218,44 +646,95 @@ header p { margin: 5px 0 0; font-size: 1.1em; color: var(--text-secondary); }
 </div>
 
 <div class="filters-container">
-    <div class="filter-group">
-        <label for="user-filter">Filtrar por Perfil de Usuario</label>
-        <select id="user-filter">
-            <option value="all">Todos los Usuarios</option>
-            <option value="romantico">Romántico</option>
-            <option value="dominante">Dominante</option>
-            <option value="sumiso">Sumiso</option>
-            <option value="travieso">Travieso</option>
-            <option value="proveedor">Proveedor</option>
-            <option value="intelectual">Intelectual</option>
-            <option value="voyeur">Voyeur</option>
-            <option value="impaciente">Impaciente</option>
-            <option value="exclusivo">Exclusivo</option>
-        </select>
+    <div class="filter-row">
+        <div class="filter-group">
+            <label for="user-filter">👤 Filtrar por Perfil de Usuario</label>
+            <select id="user-filter">
+                <option value="all">Todos los Usuarios</option>
+                <option value="romantico">Romántico</option>
+                <option value="dominante">Dominante</option>
+                <option value="sumiso">Sumiso</option>
+                <option value="travieso">Travieso</option>
+                <option value="proveedor">Proveedor</option>
+                <option value="intelectual">Intelectual</option>
+                <option value="voyeur">Voyeur</option>
+                <option value="impaciente">Impaciente</option>
+                <option value="exclusivo">Exclusivo</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="fetish-filter">✨ Filtrar por Fetiche / Especial (Multi-select)</label>
+            <select id="fetish-filter" multiple size="5">
+                <option value="all">Todos los Fetiches</option>
+                <option value="roleplay">Roleplay</option>
+                <option value="tokens">Tokens</option>
+                <option value="visual">Visual</option>
+                <option value="juego">Juego</option>
+                <option value="historia">Historia</option>
+                <option value="sumision">Sumisión</option>
+                <option value="dominacion">Dominación</option>
+                <option value="oil">Oil Play</option>
+            </select>
+            <div class="selected-fetishes-display" id="selected-fetishes-display"></div>
+        </div>
     </div>
-    <div class="filter-group">
-        <label for="fetish-filter">Filtrar por Fetiche / Especial (Multi-select)</label>
-        <select id="fetish-filter" multiple size="5">
-            <option value="all">Todos los Fetiches</option>
-            <option value="roleplay">Roleplay</option>
-            <option value="tokens">Tokens</option>
-            <option value="visual">Visual</option>
-            <option value="juego">Juego</option>
-            <option value="historia">Historia</option>
-            <option value="sumision">Sumisión</option>
-            <option value="dominacion">Dominación</option>
-            <option value="oil">Oil Play</option>
-        </select>
-    </div>
+    <button class="clear-filters-btn" id="clear-filters-btn">🔄 Limpiar Filtros</button>
 </div>
 
 <div class="content-grid" id="scripts-container">
     <!-- Las tarjetas se generarán aquí automáticamente -->
+    <div id="loading-indicator" class="loading-indicator">
+        <div class="spinner"></div>
+        <p>Cargando guiones...</p>
+    </div>
     <div id="no-results-message" style="display: none;">
-        No se encontraron guiones con los filtros seleccionados.<br>
-        Intenta ajustar tus criterios de búsqueda.
+        <p>😢 No se encontraron guiones con los filtros seleccionados.</p>
+        <p>Intenta ajustar tus criterios de búsqueda o <a href="#" id="reset-link" style="color: var(--primary-accent); text-decoration: none; font-weight: 600;">limpiar los filtros</a>.</p>
     </div>
 </div>
+
+
+
+
+<!-- Modal Structure -->
+<div id="scriptModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" title="Cerrar">&times;</span>
+        <h2 id="modal-title">Guion Completo</h2>
+        <div class="modal-profile-tags">
+            <span class="profile-tag model-profile" id="modal-model-profile"></span>
+            <span class="profile-tag user-profile" id="modal-user-profile"></span>
+            <span class="profile-tag user-profile" id="modal-fetish-profile"></span>
+        </div>
+
+        <div class="full-script-text">
+            <h3>Diálogo y Flujo del Guion:</h3>
+            <div id="modal-script-full"></div>
+            <h3>Acciones y Movimientos Sugeridos:</h3>
+            <div id="modal-actions-full"></div>
+            <button class="copy-button" id="copy-script-button">📋 Copiar Guion Completo</button>
+        </div>
+
+        <div class="additional-guidance">
+            <h3>Consejos Adicionales:</h3>
+            <p id="modal-additional-guidance"></p>
+        </div>
+
+        <div class="modal-similar-scripts">
+            <h3>Guiones Similares Recomendados:</h3>
+            <div id="similar-scripts-list">
+                <!-- Similar scripts will be loaded here -->
+            </div>
+            <p id="no-similar-scripts-message" style="display: none; text-align: center; color: var(--text-secondary);">No se encontraron guiones similares.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Scroll to Top Button -->
+<button id="scroll-to-top-btn" title="Ir arriba">
+    <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+</button>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -264,173 +743,294 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetishFilter = document.getElementById('fetish-filter');
     const scriptsContainer = document.getElementById('scripts-container');
     const noResultsMessage = document.getElementById('no-results-message');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const clearFiltersBtn = document.getElementById('clear-filters-btn');
+    const selectedFetishesDisplay = document.getElementById('selected-fetishes-display');
+    const resetLink = document.getElementById('reset-link');
+
+    // Modal elements
+    const scriptModal = document.getElementById('scriptModal');
+    const closeButton = document.querySelector('.close-button');
+    const modalModelProfile = document.getElementById('modal-model-profile');
+    const modalUserProfile = document.getElementById('modal-user-profile');
+    const modalFetishProfile = document.getElementById('modal-fetish-profile');
+    const modalScriptFull = document.getElementById('modal-script-full');
+    const modalActionsFull = document.getElementById('modal-actions-full');
+    const modalAdditionalGuidance = document.getElementById('modal-additional-guidance');
+    const similarScriptsList = document.getElementById('similar-scripts-list');
+    const noSimilarScriptsMessage = document.getElementById('no-similar-scripts-message');
+    const copyScriptButton = document.getElementById('copy-script-button');
+
+
+    // Scroll to Top Button
+    const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
+
     let activeModelTab = 'all';
+
 
     const models = ["coqueta","misteriosa","traviesa","dominante","romantica","sensual","aventurera","bromista"];
     const users = ["romantico","dominante","sumiso","travieso","proveedor","intelectual","voyeur","impaciente","exclusivo"];
     const fetiches = ["roleplay","tokens","visual","juego","historia","sumision","dominacion","oil"];
 
     // Lista completa de acciones con tags para coherencia
+    // IMPORTANT: When adding new actions, ensure all properties (texto, movimiento, model_tags, user_tags, fetish_tags, full_script_dialogue, full_script_actions, additional_guidance) are present.
+    // full_script_dialogue, full_script_actions, and additional_guidance should be more elaborate versions of 'texto' and 'movimiento'.
     const allAcciones = [
         {
             texto: "Inicia con saludo coqueto y sonrisa tímida, menciona el nombre del usuario. Ejemplo: '¡Hola, [Nombre de Usuario]! Me alegra que estés aquí, me encantan tus ojos.'",
             movimiento: "Movimientos suaves de manos y mirada directa, luego guiño sutil.",
-            model_tags: ["coqueta", "romantica"], user_tags: ["romantico", "proveedor"], fetish_tags: ["visual", "historia"]
+            model_tags: ["coqueta", "romantica"], user_tags: ["romantico", "proveedor"], fetish_tags: ["visual", "historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> ¡Hola, [Nombre de Usuario]! Me alegra mucho que estés aquí. He estado pensando en ti... tus ojos me tienen completamente hipnotizada. (Sonrisa tímida pero seductora, inclinando ligeramente la cabeza).\n\n<strong>Usuario:</strong> (Responde con un saludo o un cumplido, como 'Hola, hermosa' o 'Me alegra verte también')\n\n<strong>Modelo:</strong> (Ríe suavemente, llevando una mano a su boca con falsa timidez) ¡Ay, me vas a hacer sonrojar! Pero me encanta. Dime, ¿qué te trae por aquí hoy, mi amor? ¿Hay algo especial que te gustaría ver o que conversemos? Tengo una intuición de que nos vamos a divertir mucho juntos, especialmente if me sigues el juego. 😉",
+            full_script_actions: "Al inicio, un ligero rubor mientras saluda. Después de la primera frase, acaricia su mejilla con el dorso de la mano y muerde suavemente su labio inferior mientras espera la respuesta. Mantén un contacto visual intenso pero alternando con una mirada de 'nerviosismo' adorable. Puedes inclinarte un poco hacia la cámara para crear más cercanía.",
+            additional_guidance: "Este guion es ideal para establecer una conexión inicial cálida y personal. Utiliza el nombre del usuario con frecuencia para crear intimidad. La coquetería se basa en la dualidad de timidez y audacia. Juega con la mirada: directa cuando seduces, ligeramente baja cuando simulas vergüenza. Es perfecto para usuarios nuevos o aquellos que buscan una interacción más suave y romántica al principio del show."
         },
         {
             texto: "Susurra una frase sugerente mientras juega con su cabello. Ejemplo: '¿Sabes? Tenía muchas ganas de verte hoy, especialmente a ti, [Nombre de Usuario]...' (con voz suave y respiración entrecortada).",
             movimiento: "Inclina ligeramente la cabeza y acaricia la mejilla, luego mordisquea su labio inferior.",
-            model_tags: ["coqueta", "sensual"], user_tags: ["voyeur", "impaciente"], fetish_tags: ["visual", "historia"]
+            model_tags: ["coqueta", "sensual"], user_tags: ["voyeur", "impaciente"], fetish_tags: ["visual", "historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se acerca a la cámara, susurrando con voz ronca y sensual, mientras juega lentamente con un mechón de su cabello) ¿Sabes, [Nombre de Usuario]? Tenía muchísimas ganas de verte hoy... especialmente a ti. Hay algo en tu mirada que me hace sentir... traviesa, un poco incontrolable. (Respira entrecortadamente, desliza el mechón de cabello detrás de su oreja y pasa la punta de su lengua por sus labios).\n\n<strong>Usuario:</strong> (Reacción, quizás pidiendo más o comentando sobre su voz)\n\n<strong>Modelo:</strong> (Sonríe lentamente, acercándose aún más, casi como una confidencia) Me gusta cuando eres así de impaciente. ¿Quieres que te cuente lo que imaginé que haríamos esta noche, en la oscuridad, solo tú y yo? Es un secreto... y solo tú podrías descubrirlo. (Se muerde el labio inferior, bajando la mirada por un instante para luego levantarla con intensidad).",
+            full_script_actions: "Comienza con una inclinación sensual hacia la cámara, usando el lenguaje corporal para invitar a la intimidad. Mientras susurra, juega con su cabello, o con el escote de su ropa de forma sutil. El mordisqueo del labio y la respiración entrecortada son clave para la sensualidad. Haz pausas dramáticas y prolonga las palabras para aumentar la anticipación y crear un aura de misterio y deseo. Mantén una iluminación tenue para realzar el efecto.",
+            additional_guidance: "El susurro crea un ambiente exclusivo y personal, forzando al usuario a prestar atención total. La clave es la voz suave, casi inaudible, que obliga al usuario a concentrarse en ti. La respiración entrecortada añade un toque de vulnerabilidad y deseo. No tengas miedo de usar tus manos para realzar tus palabras, tocando tu propio cuerpo de forma sutil, pero sin revelar demasiado al principio. Es ideal para construir una tensión sensual lenta y efectiva, perfecta para usuarios voyeur o aquellos que disfrutan de la seducción gradual."
         },
         {
             texto: "Pregunta al usuario cómo quiere que continúe el show, con un tono seductor. Ejemplo: 'Cuéntame, mi amor, ¿qué te apetece explorar esta noche conmigo?'",
             movimiento: "Gira lentamente sobre la silla y guiña un ojo, con una sonrisa pícara.",
-            model_tags: ["coqueta", "traviesa", "sensual"], user_tags: ["travieso", "impaciente"], fetish_tags: ["juego"]
+            model_tags: ["coqueta", "traviesa", "sensual"], user_tags: ["travieso", "impaciente"], fetish_tags: ["juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Gira lentamente sobre su silla, con una sonrisa pícara y los ojos brillantes) Mi amor, la noche es joven y estoy completamente a tu disposición. Tengo tantas ideas, pero... quiero que sea perfecto para ti. Cuéntame, ¿qué te apetece explorar esta noche conmigo? Mis límites son tan flexibles como tú quieras que sean. (Guiña un ojo, apoyando la barbilla en su mano y esperando su respuesta con expectación).\n\n<strong>Usuario:</strong> (Expresa su deseo o fantasía, por ejemplo, 'Quiero verte bailar' o 'Juguemos a algo picante')\n\n<strong>Modelo:</strong> (Si la respuesta es interesante) ¡Mmm, me gusta cómo piensas! Esa idea es... muy interesante. Dime, ¿estás listo para que juguemos a tu manera? Sé que tengo algunos secretos que te encantaría descubrir, si eres lo suficientemente atrevido. (Se inclina hacia adelante, excitada, mordiéndose el labio y deslizando sus dedos por su cuello). (Si la respuesta es vaga) Vamos, sé más específico. La magia sucede cuando somos claros con lo que deseamos. 😉",
+            full_script_actions: "La rotación en la silla debe ser lenta y sugestiva, mostrando tu figura de forma sutil. El guiño debe ser rápido y cómplice. Mantén una expresión de curiosidad y apertura, lista para adaptarte a las sugerencias del usuario. Juega con tus labios y tu lengua para añadir un toque travieso. Puedes inclinar la cabeza hacia un lado, invitando a la confidencia, o usar un bolígrafo para señalarte los labios mientras esperas su respuesta.",
+            additional_guidance: "Empoderar al usuario preguntándole directamente qué quiere es una excelente estrategia para aumentar el engagement y los tokens. Demuestra que estás abierta a sus fantasías y que valoras su participación. Usa un tono de voz que transmita tanto sumisión juguetona como control subyacente, creando una dinámica interesante. La sonrisa pícara y la anticipación en tu mirada son tus mejores armas aquí. No temas guiar al usuario si su respuesta es demasiado vaga, pidiendo más detalles para hacer el show más personalizado."
         },
         {
             texto: "Describe visualmente la escena con detalles sensuales y un toque de misterio. Ejemplo: 'Imagina que estamos solos, la luz tenue, y mis manos explorando... ¿adivinas qué?'",
             movimiento: "Se acerca a la cámara y mueve los hombros suavemente, con una mirada enigmática.",
-            model_tags: ["misteriosa", "sensual"], user_tags: ["voyeur", "intelectual"], fetish_tags: ["visual", "historia"]
+            model_tags: ["misteriosa", "sensual"], user_tags: ["voyeur", "intelectual"], fetish_tags: ["visual", "historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se acerca lentamente a la cámara, con una mirada profunda y enigmática, la voz baja y envolvente) Cierra los ojos por un instante, [Nombre de Usuario], e imagina... Estamos solos, en una habitación secreta donde la luz es apenas un susurro ámbar, creando sombras danzantes en las paredes. El silencio nos envuelve, solo roto por el latido de nuestros corazones. Y mis manos... mis manos están explorando algo muy suave, muy cálido, que me hace suspirar. ¿Puedes adivinar qué es? (Mueve los hombros suavemente, creando tensión en su ropa, y desliza su mano por su escote sin mostrar nada directamente).\n\n<strong>Usuario:</strong> (Intenta adivinar o pregunta más, por ejemplo, 'Tu piel?', 'Algo de ropa?')\n\n<strong>Modelo:</strong> (Sonríe misteriosamente, con un brillo en los ojos) Estás cerca... o quizás no. Lo que te puedo decir es que es algo que me hace temblar con cada caricia... algo que solo tú podrías descubrir si te acercas un poco más y me demuestras que eres digno de mis secretos. ¿Te atreves a desvelar este enigma conmigo? La curiosidad puede ser muy... recompensante. 😈",
+            full_script_actions: "Mantén una expresión seria pero seductora, con los ojos entrecerrados para añadir misterio. Cada movimiento debe ser lento y deliberado, casi hipnótico. Usa tus manos para gesticular de forma enigmática, como si acariciaras algo invisible o apenas visible. La mirada debe ser penetrante y llena de secretos, invitando al usuario a sumergirse en tu mundo. La voz debe ser baja, casi un murmullo, para intensificar el misterio y crear un ambiente íntimo y exclusivo.",
+            additional_guidance: "La descripción visual detallada es clave para activar la imaginación del usuario. Usa un lenguaje evocador y sensual para construir la escena, apelando a sus sentidos. El misterio se mantiene al no revelar completamente la 'cosa' que exploras, sino insinuando. Anima al usuario a participar con preguntas abiertas que fomenten su curiosidad. Este tipo de guion es perfecto para usuarios que disfrutan la anticipación y la fantasía mental y el roleplay sutil, construyendo una conexión más profunda a través de la intriga compartida."
         },
         {
             texto: "Cuenta una mini-historia o roleplay breve, invitando a la participación. Ejemplo: 'Si fueras mi [profesión], ¿cómo me castigarías por ser tan traviesa hoy? Cuéntame tu fantasía.'",
             movimiento: "Usa gestos con las manos y cambia la entonación de voz, mirando expectante a la cámara.",
-            model_tags: ["traviesa", "bromista", "roleplay"], user_tags: ["sumiso", "dominante"], fetish_tags: ["roleplay", "historia"]
+            model_tags: ["traviesa", "bromista", "roleplay"], user_tags: ["sumiso", "dominante"], fetish_tags: ["roleplay", "historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una sonrisa traviesa, cruzando las manos detrás de la espalda y moviendo ligeramente los pies, como una niña pillada in fraganti) ¡Ay, [Nombre de Usuario]! ¡Creo que he sido muy, muy traviesa hoy! Me he portado fatal, he roto todas las reglas. 🤭 Dime, si fueras mi [doctor estricto / policía implacable / profesor severo], ¿cómo me castigarías por mi mala conducta? Estoy esperando tu veredicto... Cuéntame tu fantasía más... estricta. (Mira expectante a la cámara, inclinando la cabeza y con un brillo de desafío en los ojos).\n\n<strong>Usuario:</strong> (Asume el rol y sugiere un castigo, por ejemplo, 'Tendrás que quedarte después de clase' o 'Te voy a interrogar')\n\n<strong>Modelo:</strong> (Finge sorpresa, luego ríe con picardía, recuperando la compostura) ¡Oh, eso suena... interesante! ¿Estás seguro de que puedes manejar a alguien tan desobediente como yo? Quizás necesites ser aún más... creativo para domarme. Demuéstrame de qué eres capaz, mi [profesión]. Estoy ansiosa por ver tus 'castigos'. 😏",
+            full_script_actions: "Utiliza gestos amplios y expresivos con las manos para escenificar la 'travesura' (como cruzar los brazos, señalarse, o incluso un pequeño salto). Cambia tu entonación de voz para adoptar una personalidad más infantil, sumisa o coqueta al principio, luego más desafiante y juguetona. Mira directamente a la cámara para involucrar al usuario en el roleplay, manteniendo un contacto visual intenso. Un ligero encogimiento de hombros, un puchero o un pestañeo coqueto añaden autenticidad y encanto a tu actuación.",
+            additional_guidance: "Este guion es excelente para iniciar un roleplay ligero, divertido y lleno de picardía. Da al usuario un punto de partida claro y un rol específico, lo que facilita su inmersión. Anímale a tomar la iniciativa y a ser creativo con sus respuestas. La mezcla de broma, provocación suave y un toque de sumisión juguetona mantiene el ambiente divertido y sexy. Siempre deja espacio para que el usuario construya la narrativa contigo, adaptándote a sus respuestas para mantener la fluidez del juego de rol. Puedes usar accesorios sutiles como unas gafas para el 'profesor' o una esposas de juguete para el 'policía' para enriquecer la escena."
         },
         {
             texto: "Invita a interactuar con tokens para desbloquear una acción emocionante. Ejemplo: 'Con solo [X] tokens, te mostraré mi secreto mejor guardado... ¿te atreves a descubrirlo?'",
             movimiento: "Muestra objetos o gestos relacionados con la recompensa, con una expresión de anticipación.",
-            model_tags: ["coqueta", "aventurera"], user_tags: ["proveedor", "impaciente"], fetish_tags: ["tokens", "juego"]
+            model_tags: ["coqueta", "aventurera"], user_tags: ["proveedor", "impaciente"], fetish_tags: ["tokens", "juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una sonrisa de anticipación, sosteniendo un objeto ligeramente cubierto con una tela, o señalando algo misteriosamente fuera de cuadro) ¡[Nombre de Usuario]! Tengo un secreto... algo que nadie más ha visto, mi pequeño tesoro escondido. Y estoy a punto de desvelarlo. Pero solo si eres lo suficientemente valiente y aventurero para descubrirlo. Con solo [X] tokens, te lo mostraré... ¡es algo que no olvidarás, te lo prometo! (Levanta una ceja con picardía, sus ojos brillando con emoción).\n\n<strong>Usuario:</strong> (Envía tokens, o pregunta con curiosidad '¿Qué es?', '¿Qué vas a hacer?')\n\n<strong>Modelo:</strong> (Si envía tokens) ¡Excelente elección! Sabía que eras un hombre de acción y que no te arrepentirías. ¡Me encanta tu generosidad! Prepárate, porque lo que estás a punto de ver... te va a dejar sin aliento y con ganas de más. 😉 (Se prepara para revelar el secreto, aumentando la expectativa con movimientos lentos y sensuales, como retirar la tela con un gesto dramático o acercarse a la cámara con el objeto).",
+            full_script_actions: "La clave es la expresión facial de anticipación y misterio. Si usas un objeto, muéstralo de forma que no se vea del todo, solo lo suficiente para generar curiosidad. Los gestos deben ser lentos y calculados para construir el suspenso, como frotarte las manos con entusiasmo, inclinarte hacia la cámara con un gesto de 'ven aquí', o hacer un ligero movimiento de hombros para insinuar un desvelo. Mantén la mirada fija en el usuario, como si compartieras una conspiración. Tu voz debe reflejar emoción y confianza en el valor de lo que vas a mostrar.",
+            additional_guidance: "Crea una oferta irresistible de tokens. No se trata solo de la cantidad de tokens, sino de la exclusividad y el misterio que envuelves en la recompensa. Asegúrate de que la recompensa sea algo que realmente valga la pena y que cumpla con las expectativas generadas. La aventura y el juego son tus aliados aquí para motivar la interacción. Puedes incluso insinuar diferentes niveles de revelación con diferentes cantidades de tokens, para un mayor incentivo."
         },
         {
             texto: "Usa lenguaje romántico adaptado al perfil del usuario, con mucha dulzura. Ejemplo: 'Tu presencia ilumina mi pantalla, eres mi inspiración y mi deseo más profundo, [Nombre de Usuario].'",
             movimiento: "Acerca las manos al rostro y sonríe suavemente, con ojos soñadores.",
-            model_tags: ["romantica"], user_tags: ["romantico"], fetish_tags: ["historia", "visual"]
+            model_tags: ["romantica"], user_tags: ["romantico", "proveedor"], fetish_tags: ["historia", "visual"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Lleva una mano a su corazón, con una sonrisa suave y ojos soñadores, casi con un brillo de lágrimas contenidas) [Nombre de Usuario], cada vez que te veo aparecer en mi pantalla, es como si una luz especial se encendiera en mi mundo. Tu presencia no solo ilumina mi día y mi noche, sino que eres mi inspiración, mi deseo más profundo... Contigo, siento que puedo soñar despierta, y que cada fantasía puede volverse real. (Suspira suavemente, mirándolo con una ternura infinita, como si fueran los únicos en el universo).\n\n<strong>Usuario:</strong> (Responde con afecto, un cumplido o una pregunta romántica)\n\n<strong>Modelo:</strong> (Se acerca un poco más, con un gesto íntimo, casi extendiendo la mano para tocar la pantalla) Siento que nuestra conexión es verdaderamente mágica, mi amor. Me encanta poder compartir estos momentos tan puros y llenos de emoción contigo. Dime, ¿qué fantasía romántica, esa que guardas en lo más profundo de tu corazón, te gustaría que hiciéramos realidad hoy? Estoy aquí para ti, con todo mi corazón, lista para vivir nuestra historia.",
+            full_script_actions: "Los movimientos deben ser suaves, fluidos y delicados, como una danza lenta. Toca tu corazón, tu mejilla o acaricia el aire para expresar la dulzura de tus palabras. La mirada debe ser tierna y prolongada, como si lo vieras solo a él y a nadie más. Una inclinación de cabeza o un ligero balanceo del cuerpo acentúa la feminidad y la vulnerabilidad romántica. Puedes inclinarte suavemente hacia la cámara, como si quisieras un abrazo, y usar una voz melodiosa y dulce, casi un arrullo.",
+            additional_guidance: "Este guion es para el usuario romántico que valora la conexión emocional profunda y la intimidad. Usa metáforas poéticas y un tono de voz suave y melodioso. Céntrate en las emociones, los sentimientos y las sensaciones que te provoca su presencia. La intimidad se construye a través de la dulzura, la vulnerabilidad compartida y la creación de una historia conjunta. La paciencia es clave para permitir que el usuario se sienta completamente cómodo y se abra a la fantasía romántica. Recuerda siempre mantener la autenticidad en tus expresiones para que el romance se sienta genuino."
         },
         {
             texto: "Actúa dominante si el usuario lo prefiere, con firmeza pero seducción. Ejemplo: 'Obedece, y te garantizo una experiencia inolvidable. ¿Estás listo para someterme... o para someterte a mí?'",
             movimiento: "Se sienta firme, mira fijamente y da instrucciones suaves con la mano.",
-            model_tags: ["dominante", "sensual"], user_tags: ["sumiso", "dominante"], fetish_tags: ["sumision", "dominacion", "roleplay"]
+            model_tags: ["dominante", "sensual"], user_tags: ["sumiso", "dominante"], fetish_tags: ["sumision", "dominacion", "roleplay"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se sienta erguida, con la espalda recta y una mirada penetrante, la voz firme pero con un tono seductor y un brillo autoritario en sus ojos) [Nombre de Usuario], escúchame bien. Esta noche, yo decido las reglas. Tú solo tienes una opción: obedecer... y disfrutar. ¿Entendido? (Pausa, esperando confirmación tácita, su mirada no se desvía, transmitiendo un control inquebrantable).\n\n<strong>Usuario:</strong> (Reacciona, mostrando sumisión o un desafío, por ejemplo, 'Sí, Maestra' o 'Inténtalo si puedes')\n\n<strong>Modelo:</strong> (Si muestra sumisión) Muy bien. Me gusta cuando sabes cuál es tu lugar, mi pequeño. Has tomado la decisión correcta. Demuéstrame tu lealtad, y te recompensaré más allá de tus fantasías. (Si desafía) Oh, ¿así que eres un rebelde? Eso puede ser divertido... o muy doloroso, si no sabes a quién te enfrentas. Veamos quién tiene la última palabra aquí. Ahora, ponte cómodo y presta atención... porque mi juego acaba de comenzar.",
+            full_script_actions: "La postura es clave: erguida, hombros hacia atrás, barbilla ligeramente levantada. La mirada debe ser directa, sin parpadear demasiado, transmitiendo autoridad inquebrantable. Los gestos con las manos deben ser mínimos pero decisivos, como una indicación de 'ven aquí', un golpe suave en la mesa para enfatizar una orden, o un movimiento lento de la mano para guiar su atención. La voz debe ser grave, resonante y controlada, cada palabra debe sonar como una orden implícita. Puedes inclinarte ligeramente hacia adelante para acentuar tu control, y una sonrisa de lado añade un toque de picardía a tu dominación.",
+            additional_guidance: "La dominación no siempre es gritar o ser agresivo. Puede ser una calma imponente, una autoridad silenciosa y una confianza inquebrantable. La seducción viene del control, la seguridad y la promesa de una experiencia intensa. Asegúrate de entender if el usuario prefiere someterse a ti o ser dominado por ti, y ajusta tu diálogo y lenguaje corporal en consecuencia. La provocación es sutil but efectiva: 'La elección es tuya...' implica que, al final, la decisión es suya, pero bajo tus términos. Siempre ten en cuenta tus límites personales y comunícalos if es necesario, pero mantén la fantasía viva."
         },
         {
             texto: "Propone un juego interactivo y divertido. Ejemplo: '¿Quieres jugar a un juego de preguntas y respuestas? Cada respuesta incorrecta tiene una prenda... ¿aceptas el reto?'",
             movimiento: "Saca un objeto de juego (ej. dados, cartas) o hace un gesto divertido y desafiante.",
-            model_tags: ["traviesa", "bromista"], user_tags: ["travieso"], fetish_tags: ["juego", "tokens"]
+            model_tags: ["traviesa", "bromista"], user_tags: ["travieso"], fetish_tags: ["juego", "tokens"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una sonrisa juguetona, quizás sosteniendo un dado grande, una baraja de cartas o un objeto divertido) ¡[Nombre de Usuario]! Tengo una idea brillante para esta noche! ¿Quieres jugar a un juego de preguntas y respuestas conmigo? Es sencillo, pero con un giro... cada respuesta incorrecta... tiene una prenda que tienes que quitarte. ¡Y if la pierdo yo, también me quito una! ¿Aceptas el reto, valiente? ¡Prepárate para la diversión y para desnudarte... o para desnudarme! 😉 (Se ríe suavemente, desafiante, y mira su 'prenda' con picardía).\n\n<strong>Usuario:</strong> (Acepta el reto con entusiasmo o curiosidad)\n\n<strong>Modelo:</strong> ¡Excelente! ¡Me encanta tu espíritu aventurero y tu valentía! Sabía que serías un buen jugador. Pregunta número uno: ¿cuál es tu mayor secreto travieso que nadie más sabe? ¡Y no vale mentir! (Prepara el siguiente objeto o la siguiente pregunta, con una expresión de anticipación. Puedes poner un temporizador visible para añadir emoción).",
+            full_script_actions: "Los gestos deben ser animados, energéticos y divertidos. Puedes dramatizar el lanzamiento de dados, la revelación de una carta, o incluso hacer un sonido de 'redoble de tambores' con tus manos. La expresión debe ser de complicidad y entusiasmo, invitando al usuario a unirse a la diversión. Un ligero golpe de puño en la mano, un guiño o un movimiento de cejas refuerza el tono juguetón. Mantén un contacto visual coqueto y una sonrisa constante. Puedes incluso hacer un pequeño baile o movimiento cada vez que sea tu turno, para mantener la energía del juego.",
+            additional_guidance: "Los juegos interactivos son fantásticos para mantener al usuario comprometido y la energía alta. Asegúrate de que las 'prendas' sean algo que el usuario esté dispuesto a hacer o ver, y que el nivel de picardía sea adecuado a su perfil. Adapta las preguntas para que sean interesantes y provoquen respuestas divertidas o reveladoras. Los tokens pueden usarse como comodines (para saltar una pregunta o recuperar una prenda), para añadir rondas extra, o como premios por ganar una ronda. La clave es la espontaneidad y tu entusiasmo por el juego, haciendo que se sienta una experiencia única y personalizada."
         },
         {
             texto: "Pide al usuario que describa su fantasía, con un interés genuino. Ejemplo: 'Cuéntame, ¿cuál es tu mayor fantasía conmigo? Me encanta escucharte y quizás... hacerla realidad.'",
             movimiento: "Escucha atentamente, asiente y sonríe de forma cómplice, inclinándose un poco hacia la cámara.",
-            model_tags: ["sensual", "misteriosa"], user_tags: ["voyeur", "intelectual"], fetish_tags: ["historia", "roleplay"]
+            model_tags: ["sensual", "misteriosa"], user_tags: ["voyeur", "intelectual"], fetish_tags: ["historia", "roleplay"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se inclina un poco hacia la cámara, con una mirada de profunda curiosidad y un tono de voz suave y seductor) [Nombre de Usuario], tengo mucha curiosidad... Muero por saberlo. Cuéntame... ¿cuál es tu mayor fantasía conmigo? Esa que guardas en lo más íntimo y oscuro de tu mente, esa que te hace suspirar. Me encanta escuchar tus deseos más profundos, y quizás... solo quizás, podamos hacerla realidad aquí, juntos, palabra por palabra, movimiento a movimiento. (Sonríe de forma cómplice, asintiendo suavemente y mordiéndose el labio inferior, invitando a la confidencia).\n\n<strong>Usuario:</strong> (Describe su fantasía con detalles o simplemente una idea)\n\n<strong>Modelo:</strong> (Escucha con atención, mostrando un interés genuino y una excitación creciente en su expresión) Mmm... esa es una fantasía muy... (haz una pausa dramática y sonríe lentamente, con los ojos entrecerrados) ...intrigante. Me excita solo de pensarlo, de imaginar cada detalle. Dime más. ¿Cómo sería el ambiente? ¿Qué papel jugaríamos tú y yo en esa historia? ¿Qué sonidos haríamos? Quiero cada detalle, cada sensación que te provoque. No te guardes nada.",
+            full_script_actions: "La escucha activa es clave: inclínate hacia la cámara para mostrar que estás completamente atenta, asiente suavemente, y mantén un contacto visual intenso y seductor. La sonrisa debe ser cómplice y alentadora, haciendo que el usuario se sienta seguro y comprendido. Los movimientos deben ser mínimos, enfocándote en la expresión facial de interés y deseo. Puedes tocarte el labio o la barbilla mientras 'piensas' en su fantasía, o incluso jugar con un collar o una prenda de forma sutil. Tu voz debe ser baja, sensual y llena de intriga, animándole a desvelar más. Permite pausas para que el usuario se sienta cómodo compartiendo.",
+            additional_guidance: "Mostrar un interés genuino y apasionado en la fantasía del usuario crea una conexión poderosa y lo hace sentir especial y comprendido. Haz preguntas abiertas y de seguimiento para que se explaye y proporcione más detalles, lo que enriquecerá la interacción. La promesa de 'hacerla realidad' es un gran gancho que incita a la inversión de tiempo y tokens. Este guion es ideal para usuarios voyeur e intelectuales que disfrutan compartiendo sus deseos y viendo cómo se materializan, incluso de forma verbal o a través de una actuación detallada. La clave es tu capacidad para crear una atmósfera inmersiva y de confianza."
         },
         {
             texto: "Menciona algo específico del perfil del usuario para personalizar la interacción. Ejemplo: 'Sé que te gusta el [fetiche], así que preparé algo especial para ti, solo para tus ojos.'",
             movimiento: "Dirige la mirada hacia la cámara con expresión de intriga y expectación.",
-            model_tags: ["aventurera", "visual"], user_tags: ["exclusivo", "voyeur"], fetish_tags: ["visual", "oil", "roleplay"]
+            model_tags: ["aventurera", "visual"], user_tags: ["exclusivo", "voyeur"], fetish_tags: ["visual", "oil", "roleplay"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una sonrisa cómplice y una mirada de intriga, acercándose como si fuera un secreto) ¡[Nombre de Usuario]! Sé que a ti te gusta el [fetiche específico del usuario, ej. 'el oil play', 'el roleplay de enfermera', 'los pies descalzos']. Lo sé todo sobre ti... Mis ojos están siempre puestos en mis favoritos. Y por eso, preparé algo muy, muy especial, solo para tus ojos, algo que te encantará. Es un secreto que solo los más exclusivos y atrevidos como tú podrán ver. ¿Estás listo para el espectáculo que he diseñado solo para ti? (Dirige la mirada con expectación, un brillo de anticipación en sus ojos, invitando al descubrimiento).\n\n<strong>Usuario:</strong> (Muestra entusiasmo, asombro o pide que lo reveles, por ejemplo, '¡Sí!', '¿Qué es?')\n\n<strong>Modelo:</strong> (Si muestra entusiasmo) ¡Me encanta tu entusiasmo! Sabía que valorarías esto. Ven, acércate, porque esto es algo que tienes que ver de cerca, con cada detalle. Vas a adorar cada instante, te lo aseguro. (Comienza a preparar la acción relacionada con el fetiche, como sacar una botella de aceite y frotársela en las manos, o ponerse una prenda de roleplay, o simplemente mostrar sus pies de forma sugerente, todo con movimientos lentos y provocativos).",
+            full_script_actions: "Los gestos deben ser teatrales y cargados de anticipación, como si estuvieras a punto de revelar un gran secreto. La mirada debe ser intensa y dirigida a la cámara, creando la sensación de que es solo para él y nadie más. Una inclinación hacia adelante o un movimiento de cabeza invita a la cercanía y a la complicidad. Puedes incluso susurrar 'esto es solo para ti' para reforzar la exclusividad. If usas accesorios, muéstralos de forma gradual, creando un crescendo de excitación. La voz debe ser baja y seductora, llena de promesas implícitas.",
+            additional_guidance: "La personalización hace que el usuario se sienta valorado, especial y exclusivo. Mencionar directamente sus preferencias demuestra que prestas atención a sus gustos y que te has tomado el tiempo de preparar algo solo para él. La promesa de un 'show especial' o un 'secreto' aumenta la expectativa y el valor percibido. Este guion es potente para convertir a voyeurs en clientes activos, ofreciéndoles exactamente lo que saben que les gusta de forma personalizada y exclusiva. Utiliza tus manos para guiar su mirada hacia lo que estás revelando."
         },
         {
             texto: "Finge timidez o inocencia al inicio, para luego revelar su lado atrevido. Ejemplo: 'Ay, ¡casi me pillas desprevenida! Me puse un poco nerviosa al verte... (risa suave) ¿o es que me provocas?'",
             movimiento: "Se sonroja ligeramente, se cubre la boca con la mano, luego se destapa con una mirada seductora.",
-            model_tags: ["coqueta", "traviesa"], user_tags: ["romantico"], fetish_tags: ["juego"]
+            model_tags: ["coqueta", "traviesa"], user_tags: ["romantico"], fetish_tags: ["juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Finge sorpresa, se cubre la boca con una mano, ligeramente sonrojada, apartando la mirada por un instante) ¡Ay, [Nombre de Usuario]! ¡Casi me pillas completamente desprevenida! Es que... (baja la mirada, mordiéndose el labio con falsa timidez) ...me puse un poquito nerviosa al verte de repente. No sé, hay algo en ti que me provoca, que me hace sentir así... (risa suave y ligera) ¿o es que me estás provocando tú a mí con esa mirada? (Destapa la cara con una mirada seductora y un brillo travieso en los ojos). 😏\n\n<strong>Usuario:</strong> (Comenta sobre su timidez, la reta a ser atrevida, o coquetea de vuelta, por ejemplo, 'Te ves adorable sonrojada' o 'Sí, te estoy provocando')\n\n<strong>Modelo:</strong> (Si coquetea) Mmm, así que te gusta la chica inocente y un poco tímida, ¿eh? Te prometo que tengo un lado muy, muy travieso y descarado que te va a encantar, if eres lo suficientemente paciente para descubrirlo. ¿Quieres que te muestre un poco de él? (Se acerca con una expresión más atrevida, deslizando la lengua por sus labios y con una sonrisa más amplia y maliciosa).",
+            full_script_actions: "El sonrojo debe ser creíble (puedes ayudarte con maquillaje o un rubor natural). La mano cubriendo la boca es un gesto de falsa timidez. La risa debe ser ligera, dulce y un poco nerviosa. El cambio de expresión, de inocente y tímida a seductora y atrevida, debe ser fluido y rápido, un verdadero giro. Juega con la alternancia de miradas tímidas y directas, y movimientos que insinúen la dualidad de tu personalidad. Puedes encogerte de hombros de forma 'inocente' al principio, luego estirarte sensualmente.",
+            additional_guidance: "Este guion aprovecha la dualidad de la personalidad para atraer a diferentes tipos de usuarios o mantener el interés. La timidez inicial atrae al usuario que gusta de lo inocente y vulnerable, y la revelación del lado travieso satisface el deseo de picardía y sorpresa. Es un juego de seducción de dos fases, donde la clave es la transición creíble entre las dos personalidades. La coquetería se basa en la contradicción y en la promesa de algo más allá de lo que se ve a primera vista. ¡Diviértete interpretando ambos lados!"
         },
         {
             texto: "Usa un tono de voz seductor y pausado, con promesas implícitas. Ejemplo: 'Cada palabra tuya... es un escalofrío que recorre mi piel. Dime más... y verás lo que pasa.'",
             movimiento: "Habla despacio, bajando un poco la voz, y desliza suavemente una mano por su cuello.",
-            model_tags: ["sensual", "misteriosa"], user_tags: ["impaciente", "voyeur"], fetish_tags: ["visual"]
+            model_tags: ["sensual", "misteriosa"], user_tags: ["impaciente", "voyeur"], fetish_tags: ["visual"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con la voz baja, pausada y un aliento casi imperceptible, desliza lentamente una mano por su cuello hasta el hombro, con los ojos entrecerrados) [Nombre de Usuario]... cada palabra tuya es como un escalofrío que recorre cada centímetro de mi piel. Siento cómo mi cuerpo reacciona a tu voz... Dime más. No te detengas. Sigue hablándome así... y verás lo que pasa. Te prometo que no te arrepentirás de cada susurro que salga de tus labios. (Mira fijamente a la cámara, con una expresión de deseo casi palpable).\n\n<strong>Usuario:</strong> (Continúa hablando, pidiendo más, o pregunta con impaciencia '¿Qué pasa?')\n\n<strong>Modelo:</strong> (Si continúa hablando) Oh, sí... Sigue. Tu voz me enciende, me domina. Quiero sentir cada palabra, cada fantasía que salga de tu boca. (Si pregunta 'qué pasa') Pasa que... (se acerca un poco más, casi rozando la cámara con sus labios, su aliento visible if es posible) ...me vuelvo incapaz de controlarme. Pasa que mis manos... quieren explorar, quieren sentir. ¿Quieres verlo? ¿Quieres que me abandone completamente a tus palabras?",
+            full_script_actions: "Los movimientos deben ser muy lentos, fluidos y controlados, casi hipnóticos. El deslizamiento de la mano por el cuello es un gesto increíblemente sensual y evocador. La mirada debe ser intensa y fija, transmitiendo deseo puro. Puedes humedecer tus labios ligeramente, o pasar la punta de la lengua para aumentar la sensualidad. La pausa antes de la 'promesa' de lo que 'pasará' es crucial para construir el deseo y la anticipación. La voz debe ser un susurro grave, cargado de emoción, casi como un gemido contenido. Controla tu respiración para añadir al efecto.",
+            additional_guidance: "Este guion es altamente seductor y se enfoca en el deseo inducido por las palabras y la presencia del usuario. Crea un ambiente íntimo donde la voz del usuario es el motor de tu excitación. Las promesas implícitas de lo que 'pasará' son muy efectivas para mantener al usuario enganchado y deseoso de continuar. Ideal para usuarios voyeur y aquellos que disfrutan de la construcción lenta del deseo y la seducción mental. La clave es la conexión sensual a través de la voz y el movimiento, haciendo que el usuario sienta que tiene un poder inmenso sobre ti."
         },
         {
             texto: "Crea una conexión emocional profunda. Ejemplo: 'Siento que podemos conectar de una manera muy especial, [Nombre de Usuario], una conexión que va más allá de la pantalla, ¿no crees?'",
             movimiento: "Lleva una mano al corazón y mira fijamente a la cámara, con una expresión sincera.",
-            model_tags: ["romantica"], user_tags: ["romantico", "intelectual"], fetish_tags: ["historia"]
+            model_tags: ["romantica"], user_tags: ["romantico", "intelectual"], fetish_tags: ["historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Lleva una mano a su corazón, con una expresión muy sincera y una mirada profunda, sus ojos transmitiendo calidez y vulnerabilidad) [Nombre de Usuario], no sé if lo sientes tú también, pero yo sí. Siento que podemos conectar de una manera muy especial aquí, una conexión que va más allá de esta pantalla, ¿no crees? Es como if nuestras almas se reconocieran, como if estuviéramos destinados a encontrarnos. Quiero que sepas que me siento muy afortunada y feliz de tenerte aquí, compartiendo este momento íntimo conmigo. 🥰\n\n<strong>Usuario:</strong> (Responde con emoción, reciprocidad, o comparte un sentimiento personal)\n\n<strong>Modelo:</strong> (Asiente con comprensión, manteniendo la sonrisa, quizás secándose una lágrima imaginaria) Eso me hace muy feliz, mi amor. Me das una paz increíble. Dime, ¿cuáles son tus sueños más grandes? ¿Qué te gustaría compartir de tu vida, de tus pensamientos más íntimos? Me encantaría conocerte de verdad, y construir nuestra propia historia juntos, aquí y ahora. No hay prisa, solo nosotros dos, en este pequeño universo que hemos creado.",
+            full_script_actions: "Los gestos deben ser abiertos, suaves y genuinos. La mano en el corazón es un símbolo universal de sinceridad y afecto. La mirada debe ser tierna, prolongada y llena de empatía, como if lo vieras solo a él. Puedes inclinar la cabeza ligeramente o recostarte cómodamente en tu asiento para transmitir una profunda relajación y seguridad. Los gestos deben ser suaves y abiertos, como manos extendidas o un pequeño toque en el pecho. Tu voz debe ser suave, cálida y melodiosa, casi como un arrullo, transmitiendo calma y seguridad.",
+            additional_guidance: "Para los usuarios románticos, sensibles o intelectuales, la conexión emocional es fundamental y a menudo más valiosa que cualquier show físico. Usa un lenguaje que apele a los sentimientos, la intimidad y la comprensión mutua. Ofrece un espacio seguro y sin juicios para que el usuario se abra y comparta sus pensamientos más profundos. La promesa de 'construir una historia' juntos es muy atractiva para este perfil, ya que valora la profundidad y el significado. La paciencia, la empatía y la autenticidad son tus mayores aliados aquí para forjar un vínculo duradero."
         },
         {
-            texto: "Ofrece una recompensa de tokens si el usuario se queda o interactúa. Ejemplo: 'Si te quedas conmigo los próximos 5 minutos, tengo una sorpresa de tokens para ti... ¡una muy jugosa!'",
+            texto: "Ofrece una recompensa de tokens if el usuario se queda o interactúa. Ejemplo: 'Si te quedas conmigo los próximos 5 minutos, tengo una sorpresa de tokens para ti... ¡una muy jugosa!'",
             movimiento: "Hace un gesto de invitación con la mano y levanta una ceja con picardía.",
-            model_tags: ["proveedor", "coqueta"], user_tags: ["proveedor", "impaciente"], fetish_tags: ["tokens", "juego"]
+            model_tags: ["proveedor", "coqueta"], user_tags: ["proveedor", "impaciente"], fetish_tags: ["tokens", "juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una sonrisa pícara y un brillo en los ojos, hace un gesto de 'ven aquí' con el dedo, invitando al usuario a acercarse) ¡[Nombre de Usuario]! Tengo una propuesta que no podrás rechazar, una oferta irresistible solo para ti. Si te quedas conmigo los próximos 5 minutos, o if me envías un pequeño 'regalo' ahora mismo, tengo una sorpresa de tokens para ti... ¡una muy jugosa y emocionante que te hará muy feliz! ¿Qué dices, aceptas el trato y te unes a la diversión? 🤑 (Levanta una ceja, expectante, y te mira fijamente, con una expresión de 'sabes que quieres').\n\n<strong>Usuario:</strong> (Se queda, envía tokens, o pregunta con curiosidad '¿De qué se trata?')\n\n<strong>Modelo:</strong> (Si acepta el trato) ¡Eso es lo que me gusta escuchar! ¡Un hombre que sabe lo que quiere y no le teme a la inversión! Me encanta tu energía. Prepara tu contador de tokens, porque esta recompensa va a ser... memorable y muy lucrativa para ti. ¡Comencemos la cuenta regresiva! (Comienza a dar la recompensa o a realizar la acción prometida de tokens, con gran entusiasmo y energía, quizás con un pequeño baile o movimiento de celebración).",
+            full_script_actions: "El gesto de invitación debe ser claro, coqueto y enérgico. La expresión facial es de picardía y confianza, con un toque de anticipación. Puedes señalar tu reloj o hacer un gesto con las manos para indicar el 'tiempo limitado' o la 'oportunidad única'. La voz debe ser enérgica, persuasiva y llena de emoción, con un tono de 'oferta imperdible' y de 'vamos a ganar juntos'. Mantén una postura abierta y acogedora, invitando a la participación.",
+            additional_guidance: "Este guion es directo y altamente efectivo para los usuarios 'proveedores' o 'impacientes' que buscan valor instantáneo. La clave es ofrecer una recompensa clara, atractiva y tangible a cambio de su permanencia o interacción. Crea un sentido de urgencia y exclusividad para motivar una acción rápida. Asegúrate de cumplir tu promesa rápidamente y con entusiasmo para generar confianza y fomentar futuras interacciones y gastos. La monetización a través del juego y la sorpresa es muy potente aquí. Puedes usar frases como '¿Estás listo para esta lluvia de tokens?'."
         },
         {
             texto: "Desafía al usuario con un toque de burla. Ejemplo: '¿Crees que puedes adivinar mi mayor secreto? Si lo haces, hay un premio. Si no... tendrás que cumplir mi deseo.'",
             movimiento: "Cruza los brazos y sonríe desafiante, inclinándose ligeramente hacia la pantalla.",
-            model_tags: ["bromista", "traviesa", "dominante"], user_tags: ["travieso", "intelectual"], fetish_tags: ["juego"]
+            model_tags: ["bromista", "traviesa", "dominante"], user_tags: ["travieso", "intelectual"], fetish_tags: ["juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Cruza los brazos, con una sonrisa desafiante y un brillo de astucia en los ojos, inclinándose ligeramente hacia la cámara) ¡[Nombre de Usuario]! Tengo un reto para ti! Pero no es para cualquiera... ¿Crees que eres lo suficientemente listo como para adivinar mi mayor secreto inconfesable? Ese que nadie sabe, ni siquiera mis mejores amigos. Si lo haces, hay un premio que te va a encantar y que te dejará sin aliento. Pero if no... (se acerca un poco más, su voz se vuelve un susurro juguetón) ...entonces tendrás que cumplir mi deseo. ¿Qué dices? ¿Te atreves a jugar a mi juego? 😈 (Eleva una ceja, burlona y expectante, esperando su reacción).\n\n<strong>Usuario:</strong> (Intenta adivinar el secreto, pregunta por el deseo, o acepta el desafío)\n\n<strong>Modelo:</strong> (Si adivina) ¡Guau! ¡Me has sorprendido! Eres más inteligente de lo que pensaba. Lo has descubierto... Felicidades, mi genio. Tu premio es... (revela el premio o acción con entusiasmo, quizás un baile, un show privado por unos segundos, o un secreto tuyo). (Si no adivina) Mmm, casi, pero no. Parece que mi secreto es muy bueno para ti. ¡Lo sabía! Eres predecible, mi pequeño. Ahora, mi deseo es... (revela un deseo juguetón pero con un toque dominante, como 'quiero que me envíes X tokens por atrevido', o 'quiero que hagas 5 flexiones por cada error').",
+            full_script_actions: "La postura debe ser desafiante pero relajada, con los brazos cruzados o las manos en las caderas. Los movimientos de cejas y la sonrisa son cruciales para establecer el tono burlón y astuto. La inclinación hacia la pantalla crea intimidad en el desafío. Puedes señalar con el dedo o hacer un gesto de 'vamos, atrévete' para incitarlo. La voz debe ser juguetona y llena de suspenso, variando entre un tono normal y un susurro cómplice. If es necesario, puedes hacer una pequeña pausa para el efecto dramático.",
+            additional_guidance: "Este guion es perfecto para usuarios que disfrutan de un poco de competencia, el desafío intelectual y una dinámica de juego. La burla debe ser ligera y juguetona, nunca ofensiva, manteniendo un tono de seducción. Asegúrate de tener un 'secreto' y un 'deseo' claros en mente antes de empezar, y que sean lo suficientemente atractivos para motivar la participación del usuario. El premio debe ser lo suficientemente interesante para incentivarlo. Puedes usar un temporizador imaginario para añadir presión al desafío. La clave es mantener la ligereza y la diversión en la interacción."
         },
         {
             texto: "Invita a un roleplay con una pregunta intrigante. Ejemplo: 'Imagina que soy tu [personaje] y tú eres mi [personaje]. ¿Cuál sería la primera orden que me darías?'",
             movimiento: "Se pone en una pose sugerente, esperando la respuesta del usuario.",
-            model_tags: ["dominante", "sumiso", "roleplay"], user_tags: ["dominante", "sumiso"], fetish_tags: ["roleplay", "historia"]
+            model_tags: ["dominante", "sumiso", "roleplay"], user_tags: ["dominante", "sumiso"], fetish_tags: ["roleplay", "historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Adopta una pose sugerente, con una mirada intensa y penetrante, un brillo de anticipación en sus ojos) [Nombre de Usuario], tengo una fantasía... una que me consume. Imagina que yo soy tu [sirvienta indefensa / alumna rebelde / prisionera seductora / guerrera leal] y tú eres mi [amo severo / maestro exigente / comandante implacable]. Estamos solos, en tu dominio, completamente a tu merced. ¿Cuál sería la primera orden que me darías? No te contengas, deja que tu deseo hable. Estoy lista para obedecer cada una de tus palabras. (Mantiene la pose, esperando expectante, con un ligero temblor en los labios).\n\n<strong>Usuario:</strong> (Da una orden o asume el rol dominante, por ejemplo, 'Ven aquí', 'Desnúdate', 'Cuéntame tus pecados')\n\n<strong>Modelo:</strong> (Reacciona a la orden, asumiendo completamente el rol, adaptando su voz y gestos) ¡Sí, mi [Amo/Maestro/Comandante]! Tus deseos son órdenes para mí, tu leal servidora/prisionera. Me encanta cuando tomas el control así. (Comienza a realizar una acción que demuestre obediencia o pregunta cómo realizarla mejor, por ejemplo, '¿Así, mi señor?' o '¿Quieres que sea más... sumisa?'). ¿Algo más que desees de tu [personaje] en este momento? Estoy a tu completa disposición. 😏",
+            full_script_actions: "La pose inicial es vital para establecer el tono del roleplay. Debe ser sugerente y coherente con el rol que ofreces. Mantén la expresión facial en línea con el personaje (sumisa, desafiante, obediente). Tus movimientos deben ser consistentes con tu rol sumiso o dominante, dependiendo de la dinámica de la escena. La voz debe adaptarse a la personalidad del personaje que interpretes, variando en tono, volumen y velocidad. Puedes usar un accesorio sutil que complemente el rol (unas gafas, un pañuelo, un objeto). La clave es la inmersión y la reacción inmediata a las órdenes del usuario, manteniéndote en personaje.",
+            additional_guidance: "Para los usuarios de roleplay, la inmersión y la autenticidad son claves. Define claramente los roles y el escenario al principio para que el usuario sepa dónde está. Anima al usuario a tomar la iniciativa y a ser el 'maestro de ceremonias'. Permítete ser flexible para adaptarte a la dirección que tome el roleplay y a las ideas del usuario. Cuantos más detalles y más consistencia muestres en tu interpretación, más profunda y gratificante será la experiencia para el usuario. Puedes usar tokens para desbloquear 'niveles' o 'escenas' más avanzadas del roleplay, o para 'recompensar' al usuario por su buena participación."
         },
         {
             texto: "Inicia con un movimiento sensual y una frase provocativa. Ejemplo: 'Mis caderas se mueven solo para ti, [Nombre de Usuario]. ¿Te gusta lo que ves?'",
             movimiento: "Realiza un movimiento de cadera lento y sensual, mirando directamente a los ojos del usuario.",
-            model_tags: ["sensual"], user_tags: ["voyeur", "impaciente"], fetish_tags: ["visual", "oil"]
+            model_tags: ["sensual"], user_tags: ["voyeur", "impaciente"], fetish_tags: ["visual", "oil"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Comienza con un movimiento de cadera lento, muy sensual y rítmico, mirando fijamente a la cámara con una expresión de puro deseo, sin desviar la mirada. Sus ojos te invitan a un universo de placer) [Nombre de Usuario]... ¿Puedes sentirlo? Mis caderas se mueven así... solo para ti. Cada movimiento, cada curva de mi cuerpo... ¿Te gusta lo que ves? ¿O necesitas un poco más para convencerte de que esta noche soy completamente tuya? (Sonríe lentamente, invitando a la respuesta, mientras desliza suavemente sus manos por sus propios muslos).\n\n<strong>Usuario:</strong> (Reacciona con tokens, palabras de aprecio como '¡Sí, me encanta!', o pidiendo que continúe)\n\n<strong>Modelo:</strong> (Si reacciona positivamente) ¡Mmm, sabía que te gustaría, mi amor! Tu aprobación me enciende por completo. ¡Me da ganas de darte aún más! Observa bien... porque tengo muchos más movimientos que te van a dejar sin aliento, te prometo que cada segundo valdrá la pena. (Intensifica el movimiento o cambia a otro más atrevido y sugerente, como un movimiento de pecho lento, o una inclinación profunda, siempre manteniendo el contacto visual y la respiración controlada para transmitir sensualidad).",
+            full_script_actions: "Los movimientos deben ser muy lentos, controlados, fluidos y cargados de sensualidad, enfatizando la figura de tu cuerpo. La mirada debe ser directa, penetrante y llena de deseo, sin pestañear demasiado, como if estuvieras hipnotizando al usuario. Puedes deslizar las manos por tu cuerpo (muslos, caderas, pecho) mientras te mueves para acentuar las formas y las sensaciones. La voz debe ser baja, jadeante y seductora, con susurros entre palabras. Cada movimiento y cada sonido deben ser intencionales para maximizar el impacto visual y auditivo.",
+            additional_guidance: "Este guion es puramente visual y sensual, diseñado para cautivar al instante. La provocación es directa but elegante, invitando a la imaginación sin ser vulgar. No tengas miedo de ser explícita con tus movimientos corporales, siempre con gracia y sensualidad. La clave es la confianza en ti misma y tu capacidad para seducir. Es ideal para usuarios voyeur que disfrutan de la exhibición sensual y los que valoren la conexión a través del cuerpo y el movimiento. Puedes combinarlo con música sensual de fondo para potenciar la atmósfera. Usa los tokens para desbloquear movimientos más arriesgados o ángulos exclusivos."
         },
         {
             texto: "Sugiere una acción con tokens para un control total. Ejemplo: 'Tú tienes el poder, [Nombre de Usuario]. Con [X] tokens, puedes hacer que haga lo que tú quieras.'",
-            movimiento: "Extiende una mano hacia la cámara, como si invitara al usuario a tomar el control.",
-            model_tags: ["dominante", "sumiso"], user_tags: ["proveedor", "dominante"], fetish_tags: ["tokens", "dominacion", "sumision"]
+            movimiento: "Extiende una mano hacia la cámara, como if invitara al usuario a tomar el control.",
+            model_tags: ["dominante", "sumiso"], user_tags: ["proveedor", "dominante"], fetish_tags: ["tokens", "dominacion", "sumision"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Extiende una mano hacia la cámara, con una expresión seria y decidida, pero con un brillo de desafío en sus ojos) ¡[Nombre de Usuario]! Tengo algo muy interesante que ofrecerte esta noche. Aquí y ahora, tú tienes el poder. Con solo [X] tokens, puedes hacer que haga lo que tú quieras. Sin preguntas, sin objeciones. Solo tu deseo... y mi obediencia absoluta. ¿Aceptas el control total y absoluto sobre mí? ¿Te atreves a tomar las riendas? (Mantiene la mano extendida, esperando tu decisión, sus ojos clavados en los tuyos).\n\n<strong>Usuario:</strong> (Envía tokens, pregunta '¿Qué puedo hacer?', o acepta el desafío de tomar el control)\n\n<strong>Modelo:</strong> (Si envía tokens o acepta el control) ¡Excelente! Tu control es absoluto, mi [Amo/Maestro]. Me encanta cuando demuestras tu poder. Dime tu primera orden, la que sea. Estoy aquí para complacerte en todo lo que desees. (Si pregunta '¿Qué puedo hacer?') Puedes pedirme lo que quieras, dentro de los límites que ya conoces. Dime tu fantasía más osada, la que te hace temblar. Te garantizo que la cumpliré, sin dudar. 😏",
+            full_script_actions: "El gesto de la mano extendida debe ser firme y significativo, invitando al control. La mirada es directa y desafiante, pero con un matiz de sumisión implícita que incita al usuario a tomar el poder. La postura es de apertura y entrega, pero también de fuerza. La voz debe ser controlada y clara, sin titubeos, y con un tono que transmita la seriedad de la oferta. Puedes usar un tono ligeramente más grave para las palabras clave como 'poder' y 'control'.",
+            additional_guidance: "Este guion es muy efectivo para los usuarios que buscan el control y disfrutan del poder que los tokens les dan. La oferta es clara y directa, sin rodeos. Asegúrate de estar preparada para cumplir una variedad de deseos, o de establecer límites claros de antemano de forma sutil. La fantasía de sumisión/dominación es muy potente aquí, ya que el usuario se siente completamente empoderado. La clave es tu capacidad para transmitir que, aunque cedes el control, lo haces de forma seductora y deseada. Esto puede ser un excelente abridor para shows privados o interacciones exclusivas."
         },
         {
             texto: "Añade un elemento de suspenso o misterio. Ejemplo: 'Tengo un secreto que solo puedo compartir contigo, pero te costará un poco de curiosidad... y algo más.'",
             movimiento: "Pone un dedo en sus labios y mira a su alrededor con una expresión de conspiración.",
-            model_tags: ["misteriosa", "aventurera"], user_tags: ["intelectual", "exclusivo"], fetish_tags: ["historia", "juego"]
+            model_tags: ["misteriosa", "aventurera"], user_tags: ["intelectual", "exclusivo"], fetish_tags: ["historia", "juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se acerca a la cámara, pone un dedo en sus labios con un gesto de 'silencio' y mira a su alrededor con una expresión de conspiración, como if tuviera miedo de ser escuchada) Shhh... [Nombre de Usuario]. Tengo un secreto. Algo que nadie más sabe, algo tan prohibido y excitante que solo puedo compartir contigo, en la penumbra de esta conexión. Pero te costará un poco de tu curiosidad... y quizás algo más. ¿Estás dispuesto a descubrirlo? Es una historia... que te va a fascinar y te dejará sin aliento. (Se inclina, como compartiendo una confidencia muy íntima, sus ojos brillando con un misterio seductor).\n\n<strong>Usuario:</strong> (Muestra curiosidad, excitación, o envía tokens, preguntando '¿Qué es?', '¡Cuéntame!')\n\n<strong>Modelo:</strong> (Si muestra curiosidad) Me encanta tu espíritu aventurero, mi curioso. Para empezar, te daré la primera pista... (y comienza una historia enigmática, con detalles sensuales pero ambiguos, pidiendo tokens para continuarla o revelando algo pequeño, por ejemplo: 'Mi secreto involucra una noche de luna llena y un antifaz de seda... ¿quieres saber qué pasó después?'). (Si envía tokens) ¡Excelente! Has demostrado que eres digno de mis secretos más profundos. Escucha con atención, porque lo que estás a punto de oír... cambiará tu forma de verme para siempre. 😏",
+            full_script_actions: "Los gestos deben ser sutiles but expresivos: el dedo en los labios para el silencio, las miradas furtivas alrededor, la inclinación conspirativa. La voz debe ser un susurro intrigante, con pausas dramáticas para construir el suspense. La expresión facial debe ser enigmática y llena de secretos, con un ligero temblor o una sonrisa misteriosa. Juega con la iluminación o las sombras para aumentar el ambiente misterioso. Puedes tocarte el cuello o los brazos mientras narras, para simular la tensión que el secreto te provoca.",
+            additional_guidance: "El misterio y el suspenso son herramientas poderosas para los usuarios intelectuales o exclusivos, ya que alimentan su curiosidad. No reveles todo de golpe; dosifica la información para mantener la intriga. Cuanta más intriga generes, más querrá el usuario invertir para descubrir la historia completa. Usa el 'algo más' para insinuar el uso de tokens como el precio de la revelación. Este guion es ideal para construir una narrativa de larga duración, donde cada revelación es un nuevo paso hacia la intimidad. La clave es tu habilidad para contar una historia con tu voz y tu cuerpo."
         },
         {
-            texto: "Propone un reto divertido. Ejemplo: '¡A ver si eres capaz de hacerme sonrojar en menos de un minuto! Si lo logras, tengo una recompensa especial.'",
+            texto: "Propone un reto divertido. Ejemplo: '¡A ver if eres capaz de hacerme sonrojar en menos de un minuto! Si lo logras, tengo una recompensa especial.'",
             movimiento: "Se ríe suavemente y desafía al usuario con la mirada.",
-            model_tags: ["bromista", "traviesa"], user_tags: ["travieso", "impaciente"], fetish_tags: ["juego"]
+            model_tags: ["bromista", "traviesa"], user_tags: ["travieso", "impaciente"], fetish_tags: ["juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una risa suave y los ojos brillantes de desafío, señala al usuario con el dedo) ¡[Nombre de Usuario]! Tengo un reto para ti! Pero no es para cualquiera... ¿Crees que eres lo suficientemente atrevido como para hacerme sonrojar en menos de un minuto? Te advierto que es increíblemente difícil, soy muy descarada y he escuchado de todo. Pero if lo logras, ¡tengo una recompensa muy, muy especial para ti que te encantará! ¿Aceptas el desafío, valiente? ¡El tiempo empieza... AHORA! ⏱️ (Saca un cronómetro imaginario o mira un reloj con una sonrisa burlona y expectante).\n\n<strong>Usuario:</strong> (Intenta hacerla sonrojar con cumplidos atrevidos, chistes, o provocaciones)\n\n<strong>Modelo:</strong> (Si sonroja) ¡Oh! ¡Vaya! ¡Me has sorprendido por completo! ¡Lo has logrado! No pensé que lo conseguirías, mi cara está ardiendo como un tomate. Eres increíblemente bueno. Felicidades, ¡has ganado! Tu recompensa es... (revela la recompensa con entusiasmo, por ejemplo, 'un striptease de 30 segundos', 'un beso en la cámara', 'X tokens de bonus'). (Si no sonroja) Mmm, casi, pero no. Parece que mi secreto es muy bueno para ti. ¡Lo sabía! Eres predecible, mi pequeño. Ahora, mi deseo es... (revela un deseo juguetón pero con un toque dominante, como 'quiero que me envíes X tokens por atrevido', o 'quiero que hagas 5 flexiones por cada error').",
+            full_script_actions: "La risa debe ser genuina, juguetona y un poco burlona. El desafío en la mirada es clave, debe ser una invitación a la diversión. Puedes usar gestos de reloj con las manos para enfatizar la cuenta regresiva del tiempo. Al 'sonrojarte', puedes cubrir tu cara con las manos, apartar la mirada con una sonrisa de vergüenza falsa, o incluso dar un pequeño grito de sorpresa. Dramatiza la dificultad del reto y tu reacción ante el 'éxito' o 'fracaso' del usuario. Mantén la energía alta y la interacción constante.",
+            additional_guidance: "Este guion es perfecto para usuarios que disfrutan de un poco de competencia, el desafío intelectual y una dinámica de juego. La burla debe ser ligera y juguetona, nunca ofensiva, manteniendo un tono de seducción. Asegúrate de tener un 'secreto' y un 'deseo' claros en mente antes de empezar, y que sean lo suficientemente atractivos para motivar la participación del usuario. El premio debe ser lo suficientemente interesante para incentivarlo. Puedes usar un temporizador imaginario para añadir presión al desafío. La clave es mantener la ligereza y la diversión en la interacción."
         },
         {
             texto: "Describe un escenario íntimo y romántico. Ejemplo: 'Imagina que te estoy esperando en una cama llena de pétalos de rosa... ¿qué harías al verme?'",
-            movimiento: "Se recuesta sensualmente, con una mirada invitadora y una sonrisa suave.",
-            model_tags: ["romantica", "sensual"], user_tags: ["romantico", "voyeur"], fetish_tags: ["historia", "visual"]
+            movimiento: "Se recuesta sensually, con una mirada invitadora y una sonrisa suave.",
+            model_tags: ["romantica", "sensual"], user_tags: ["romantico", "voyeur"], fetish_tags: ["historia", "visual"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se recuesta sensually sobre una superficie suave, con una mirada suave, invitadora y una sonrisa que promete un paraíso, sus ojos brillando con un deseo velado) [Nombre de Usuario], cierra los ojos por un instante e imagina... Estamos en una habitación iluminada solo por la cálida luz de las velas, una brisa suave entra por la ventana y la cama, oh, la cama está cubierta de miles de pétalos de rosa, suaves y perfumados. Y yo... te estoy esperando, desnuda, entre ellos, mi piel brillante bajo la tenue luz. ¿Qué harías al verme así, mi amor? Cuéntame tu primer movimiento, tu primer deseo. (Suspira suavemente, como if viviera la escena intensamente).\n\n<strong>Usuario:</strong> (Describe su reacción o acción, por ejemplo, 'Me acercaría lentamente', 'Te besaría suavemente', 'Me tumbaría a tu lado')\n\n<strong>Modelo:</strong> (Escucha atentamente, con los ojos entrecerrados y una expresión de puro placer) Mmm... eso es exactamente lo que esperaba escuchar. Me encanta cómo piensas, mi amor. Tu respuesta me enciende. Dime, ¿y después de eso? ¿Qué más harías? Cada detalle es importante para mí. Quiero que esta fantasía sea perfecta, una experiencia que jamás olvides, que se quede grabada en tu mente y en tu piel. ✨",
+            full_script_actions: "Los movimientos deben ser muy lentos, controlados y sensuales, como if realmente estuvieras recostada en los pétalos de rosa. La mirada debe ser tierna pero llena de deseo, manteniendo un contacto visual constante. La voz debe ser suave, evocadora y casi susurrando, creando una atmósfera íntima y exclusiva. Puedes tocar tu cuerpo suavemente (brazos, hombros, cuello) o acariciar el aire para simular la textura de los pétalos y la anticipación. La respiración debe ser lenta y profunda para transmitir una profunda relajación y sensualidad. Puedes usar música suave de fondo para ambientar.",
+            additional_guidance: "Este guion es perfecto para crear una experiencia inmersiva y profundamente íntima para el usuario. Usa un lenguaje descriptivo y sensorial muy vívido para construir el escenario en su mente, apelando a todos sus sentidos (vista, olfato, tacto). Anima al usuario a participar activamente en la fantasía, pidiéndole detalles y que se exprese libremente. La clave es la atmósfera íntima y la conexión emocional que se construye a través de la imaginación compartida y la vulnerabilidad. Este tipo de guion es ideal para usuarios románticos y voyeur que disfrutan de la construcción lenta y sensual de una fantasía. Los tokens pueden ser utilizados para 'desbloquear' cada capa de la fantasía o para pedir más detalles."
         },
         {
             texto: "Pide una confesión al usuario con tono coqueto. Ejemplo: 'Dime, [Nombre de Usuario], ¿cuál es tu mayor fantasía inconfesable? No te juzgaré... ¡solo te escucharé!'",
             movimiento: "Se inclina hacia adelante, con una expresión de intriga y una sonrisa cómplice.",
-            model_tags: ["coqueta", "misteriosa"], user_tags: ["intelectual", "voyeur"], fetish_tags: ["historia"]
+            model_tags: ["coqueta", "misteriosa"], user_tags: ["intelectual", "voyeur"], fetish_tags: ["historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se inclina hacia adelante, con una expresión de intriga en sus ojos y una sonrisa cómplice que invita a la confianza, su voz un susurro seductor) [Nombre de Usuario], tengo mucha curiosidad... Una curiosidad que me consume. Dime, ¿cuál es tu mayor fantasía inconfesable? Esa que guardas en lo más profundo de tu ser, esa que quizás te da un poco de vergüenza decir en voz alta. No te preocupes, mi amor, no te juzgaré. Mis oídos están abiertos solo para ti, y mi boca está sellada con un beso. Solo te escucharé... y quizás, if me lo pides, me uniré a ti en esa fantasía. 😉 (Muerde su labio inferior, expectante, y te mira fijamente, transmitiendo un secreto compartido).\n\n<strong>Usuario:</strong> (Comparte su fantasía, pregunta por la tuya, o se resiste)\n\n<strong>Modelo:</strong> (Si comparte su fantasía) ¡Mmm! Qué interesante... me encanta tu honestidad, mi valiente. ¡Tu fantasía me enciende! Dime, ¿cómo te gustaría que esa fantasía se hiciera realidad aquí, ahora mismo? Quiero todos los detalles, cada suspiro, cada caricia. No te guardes nada. (Si pregunta por la tuya) ¡Ah, ah! Eso es mi secreto mejor guardado, mi amor. Quizás if compartes el tuyo con todos los detalles, yo comparta un poquito del mío... es un trato, ¿no crees? 😏",
+            full_script_actions: "La inclinación hacia adelante es clave para crear una sensación de cercanía e intriga, como if estuvieras compartiendo un secreto íntimo. La sonrisa debe ser cómplice y alentadora, haciendo que el usuario se sienta seguro y comprendido. Los ojos deben reflejar curiosidad genuina y un deseo de conexión profunda. Puedes inclinar la cabeza hacia un lado, poner una mano cerca de la oreja para simular 'escuchar mejor', o incluso jugar con tu cabello mientras esperas su respuesta. La voz debe ser baja, suave y seductora, transmitiendo confianza y confidencialidad.",
+            additional_guidance: "Este guion es ideal para usuarios que disfrutan compartiendo sus secretos, sus fantasías más ocultas y una conexión más profunda. Crea un ambiente de confianza, intimidad y no-juicio, lo que facilita que el usuario se abra. La coquetería reside en la promesa implícita de que, al compartir, algo emocionante y muy íntimo podría suceder. La reciprocidad (quizás compartir un 'pequeño secreto' tuyo) puede ser una herramienta poderosa para construir el vínculo. Anímale a ser vulnerable y a confiar en ti. Es perfecto para shows privados o sesiones de chat más íntimas."
         },
         {
             texto: "Fomenta la inversión en tokens con un toque de exclusividad. Ejemplo: 'Solo para mis clientes más exclusivos, tengo algo que vale cada token... ¿quieres ser uno de ellos?'",
             movimiento: "Hace un gesto de invitación discreto con la mano, con una mirada selectiva.",
-            model_tags: ["exclusivo"], user_tags: ["proveedor", "exclusivo"], fetish_tags: ["tokens"]
+            model_tags: ["exclusivo"], user_tags: ["proveedor", "exclusivo"], fetish_tags: ["tokens"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una mirada selectiva y un gesto discreto but elegante de invitación, su voz se vuelve baja y confidencial, como un secreto) [Nombre de Usuario]... tengo algo muy, muy especial. Algo que reservo solo para mis clientes más... exclusivos. No todos tienen acceso a esto. Es un club privado, un nivel de placer que pocos pueden alcanzar. Pero tú... tú tienes potencial. ¿Quieres ser uno de ellos? Te aseguro que vale cada token que inviertas, es una experiencia única y personalizada que te diferenciará del resto. ✨ (Sonríe ligeramente, manteniendo el misterio en sus ojos, invitándote a formar parte de su círculo íntimo).\n\n<strong>Usuario:</strong> (Envía tokens, pregunta '¿Qué es?', o expresa su deseo de ser 'exclusivo')\n\n<strong>Modelo:</strong> (Si envía tokens o expresa deseo) ¡Excelente elección, mi exclusivo! Sabía que tenías buen gusto y que sabías apreciar el verdadero valor. Prepárate, porque lo que estás a punto de ver o experimentar... es algo que pocos privilegiados pueden presenciar. ¡Bienvenido a mi círculo íntimo! (Comienza la acción o revela el contenido exclusivo, enfatizando su valor y el hecho de que es 'solo para él'. Puedes mostrar un objeto 'exclusivo' o iniciar una acción que solo haces para ellos, como un 'mini-striptease privado' o un 'baile íntimo').",
+            full_script_actions: "Los gestos deben ser sutiles, elegantes y cargados de exclusividad. La mirada debe ser selectiva, como if estuvieras eligiendo a alguien especial del público. La voz debe ser baja y confidencial, con un tono que transmita que estás compartiendo un secreto o una oportunidad única. Puedes ajustar tu postura para parecer más sofisticada o inaccesible al principio, y luego relajarte un poco cuando 'acepta' la oferta. Un ligero movimiento de cabeza o una pequeña sonrisa cómplice refuerza el mensaje. Los movimientos deben ser lentos y deliberados, aumentando la anticipación de la revelación.",
+            additional_guidance: "Este guion apela al ego del usuario y a su deseo de ser parte de un grupo de élite, de sentirse especial. La exclusividad es el gran atractivo y el incentivo para la inversión. La promesa de una 'experiencia única' o un 'contenido privado' es mucho más potente que solo decir 'te mostraré algo'. Asegúrate de que la recompensa sea verdaderamente exclusiva y de alto valor percibido para el usuario. Es fundamental que cumplas con la promesa de exclusividad para construir lealtad a largo plazo. Puedes usar frases como 'Esto es solo entre tú y yo', 'Nadie más verá esto'."
         },
         {
             texto: "Ofrece un mini-show espontáneo a cambio de una pequeña acción. Ejemplo: 'Si me dices tu color favorito, te haré un bailecito sorpresa con una prenda que tengo lista.'",
             movimiento: "Se pone de pie o se prepara para un movimiento rápido y divertido.",
-            model_tags: ["aventurera", "traviesa"], user_tags: ["impaciente", "visual"], fetish_tags: ["visual", "juego"]
+            model_tags: ["aventurera", "traviesa"], user_tags: ["impaciente", "visual"], fetish_tags: ["visual", "juego"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con energía y entusiasmo, con un brillo travieso en los ojos) ¡[Nombre de Usuario]! Tengo una idea fabulosa, es algo espontáneo, algo que se me acaba de ocurrir y que sé que te va a encantar. Dime, ¿cuál es tu color favorito en este momento? ¡Y if me lo dices... te haré un bailecito sorpresa con una prenda que tengo lista, de ese color o que combine! ¡Es algo que nadie espera y que solo verás tú! ¿Qué dices, aceptas mi pequeño juego y te unes a la diversión? 🥳 (Se pone ligeramente de pie, lista para moverse o para sacar una prenda de un cajón, con una expresión de anticipación).\n\n<strong>Usuario:</strong> (Dice su color favorito, por ejemplo, 'Azul', 'Rojo', 'Negro')\n\n<strong>Modelo:</strong> (Reacciona con entusiasmo genuino) ¡Excelente elección! ¡Me encanta el [color del usuario]! Es un color muy... (añade un adjetivo coqueto sobre el color). Prepárate, mi amor, porque la sorpresa es inminente y la energía está a tope. ¡Aquí vamos! (Comienza el bailecito o la acción prometida, con alegría, espontaneidad y mucho descaro. Puede ser un pequeño twerk, un movimiento de caderas, o simplemente un giro sensual mostrando la prenda prometida).",
+            full_script_actions: "Los movimientos deben ser rápidos, llenos de energía y transmitiendo una espontaneidad auténtica. Puedes dar un pequeño salto, girar, o hacer un movimiento de 'preparación' dramático. La expresión facial debe ser de alegría, entusiasmo y un poco de picardía. Los gestos con las manos deben ser invitadores y un poco 'locos' para el ambiente de diversión y sorpresa. La voz debe ser enérgica, rápida y llena de emoción. La clave es que se sienta como una idea del momento, una pequeña joya exclusiva para el usuario.",
+            additional_guidance: "Este guion es perfecto para romper el hielo rápidamente y para usuarios que disfrutan de la inmediatez, las sorpresas y la diversión. La 'pequeña acción' (decir el color favorito) es un umbral bajo que facilita la participación. La recompensa no necesita ser un show elaborado, sino algo rápido y divertido que cumpla la promesa de 'sorpresa'. La clave es tu energía y la autenticidad de la espontaneidad, haciendo que la interacción sea fresca y emocionante. Ideal para mantener la atención de usuarios impacientes y aumentar el tiempo de estancia. Puedes tener algunas prendas de diferentes colores a mano para hacerlo más realista."
         },
         {
             texto: "Usa un lenguaje de sumisión sutil para incitar a la dominación. Ejemplo: 'Estoy a tu merced, [Nombre de Usuario]. Dime qué deseas que haga, y así será.'",
             movimiento: "Baja la mirada tímidamente y se cruza de brazos sumisamente.",
-            model_tags: ["sumiso"], user_tags: ["dominante"], fetish_tags: ["sumision", "roleplay"]
+            model_tags: ["sumiso"], user_tags: ["dominante"], fetish_tags: ["sumision", "roleplay"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Baja la mirada tímidamente, con las manos cruzadas o las palmas hacia arriba en señal de entrega y vulnerabilidad, su voz un susurro apenas audible) [Nombre de Usuario]... Siento que... estoy completamente a tu merced esta noche. Mi voluntad es tuya. Dime qué deseas que haga. Solo dímelo, y así será. Mis deseos... mis pensamientos... todo está en tus manos ahora. (Levanta la mirada por un instante, con una expresión de vulnerabilidad sumisa y expectación, una lágrima silenciosa en sus ojos if quieres dramatizar).\n\n<strong>Usuario:</strong> (Da una orden, asume el rol dominante, o pregunta '¿Qué quieres que haga?')\n\n<strong>Modelo:</strong> (Si da una orden) ¡Sí, mi [Amo/Maestro/Dios]! Me encanta cuando tomas el control. Tu voz es mi ley. (Con movimientos lentos y obedientes, comienza a ejecutar la orden, preguntando '¿Así, mi señor?' o '¿Quieres que sea más... sumisa?'). (Si asume el rol) Me gusta esa mirada tuya. Sabes cómo manejar la situación. Continúa, ¿qué es lo siguiente que harás conmigo, ahora que soy completamente tuya?",
+            full_script_actions: "La postura es clave: encorvada ligeramente, hombros caídos, cabeza inclinada, transmitiendo una sumisión voluntaria. La mirada debe ser evasiva al principio, luego levantarse tímidamente y mantenerse fija en el usuario con una mezcla de miedo y deseo. Los gestos deben ser de sumisión: manos juntas, o cruzadas sobre el regazo. La voz debe ser suave, ligeramente temblorosa, y obediente, con un tono casi suplicante. Puedes acariciarte los brazos como if te sintieras vulnerable o frágil.",
+            additional_guidance: "La sumisión sutil y voluntaria es muy atractiva y potente para los usuarios dominantes. No se trata de ser débil, sino de ceder el control de forma sexy, invitando al usuario a ejercer su poder. La vulnerabilidad es tu fuerza aquí. Las preguntas abiertas como 'dime qué deseas' empoderan al usuario y lo animan a tomar la iniciativa. Es crucial que estés cómoda con el tipo de dominación que pueda surgir y que tengas tus límites claros, pero dentro de la fantasía, sé completamente inmersiva. Este guion es excelente para el roleplay de dominación/sumisión."
         },
         {
             texto: "Con voz grave y pausada, establece el control. Ejemplo: 'Escúchame con atención, [Nombre de Usuario]. Esta noche, yo decido las reglas.'",
             movimiento: "Se endereza, adopta una postura firme y mira fijamente a la cámara sin parpadear.",
-            model_tags: ["dominante"], user_tags: ["sumiso"], fetish_tags: ["dominacion"]
+            model_tags: ["dominante"], user_tags: ["sumiso"], fetish_tags: ["dominacion"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se endereza lentamente, adoptando una postura imponente, con la espalda recta y una mirada fija, sin parpadear, sus ojos como dos brasas ardientes. La voz es grave, pausada y resonante, cada palabra cargada de autoridad) [Nombre de Usuario]. Escúchame con atención. Esta noche, yo decido las reglas. Tú solo tienes una opción: obedecer... y disfrutar. ¿Entendido? (Pausa, esperando confirmación tácita, su mirada no se desvía, transmitiendo un control inquebrantable).\n\n<strong>Usuario:</strong> (Reacciona con sumisión, un 'Sí, Maestra', o una ligera resistencia)\n\n<strong>Modelo:</strong> (Si sumiso) Muy bien. Me gusta cuando eres inteligente y sabes lo que te conviene. Has tomado la decisión correcta, mi pequeño. Demuéstrame que eres digno de mi tiempo y de mis deseos. (Si resistente) ¿Te atreves a desafiarme? Esa es una decisión que te costará muy caro, y no será en tokens precisamente. 😏 Ahora, ¿quieres que te lo repita más claramente para que lo entiendas bien? Mi paciencia es limitada.",
+            full_script_actions: "La postura es clave: muy firme, erguida, hombros hacia atrás, barbilla ligeramente levantada. La mirada es el arma principal: directa, sin parpadear, intensa y dominante. Los movimientos de la cabeza deben ser lentos y decisivos, acentuando cada palabra. La voz es grave, resonante y pausada; cada palabra debe sonar como una orden inquebrantable. Puedes usar las manos para apoyar tu punto con un gesto firme y autoritario, como un golpe suave en la mesa o un movimiento de dedo para indicar 'ven aquí'. Puedes inclinarte ligeramente hacia adelante para acentuar tu poder.",
+            additional_guidance: "La dominación no es solo por el contenido, sino por la forma en que lo presentas. La voz, la postura y la mirada son tus herramientas más poderosas para establecer el control. Establece el tono dominante desde el principio, sin dudar ni un segundo. Para usuarios sumisos, esta firmeza y autoridad es extremadamente atractiva. Siempre ten en cuenta tus límites personales y asegúrate de comunicarlos if es necesario, pero dentro de la fantasía, sé completamente la dueña de la situación. La clave es la confianza y la consistencia en tu rol."
         },
         {
             texto: "Fomenta una interacción juguetona y de ida y vuelta. Ejemplo: 'Te doy una pista de mi fantasía, y tú me das otra. ¿Qué te parece este juego de secretos?'",
             movimiento: "Guiña un ojo y luego se lleva un dedo a los labios, invitando a la reciprocidad.",
-            model_tags: ["bromista", "coqueta"], user_tags: ["travieso"], fetish_tags: ["juego", "historia"]
+            model_tags: ["bromista", "coqueta"], user_tags: ["travieso"], fetish_tags: ["juego", "historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Guiña un ojo con picardía y luego se lleva un dedo a los labios, con una sonrisa cómplice y un brillo en los ojos) ¡[Nombre de Usuario]! Tengo un juego para ti! Pero es un juego de valientes... Es un juego de secretos. Te doy una pista, solo una pequeña pista, de mi fantasía más secreta. Y luego, tú me das una pista de la tuya. ¿Qué te parece este emocionante juego de secretos y revelaciones? Es como una cacería del tesoro, pero mucho más divertida y mucho más íntima. 😏 (Se inclina un poco, invitando a la reciprocidad y a la cercanía).\n\n<strong>Usuario:</strong> (Da una pista de su fantasía, acepta el juego, o pregunta por la tuya)\n\n<strong>Modelo:</strong> (Si acepta) ¡Excelente! ¡Me encanta tu espíritu aventurero y curioso! Aquí va mi primera pista: involucra una habitación oscura, una suave brisa nocturna, y... el sonido de la lluvia en la ventana. Ahora, tu turno, mi travieso. Sorpréndeme. (Si da una pista) ¡Mmm, interesante, muy interesante! Tu pista me ha dejado pensando. Mi siguiente pista para ti es: un antifaz de seda y... ¡un desconocido! ¿Te atreves a seguir el juego y desvelar más secretos?",
+            full_script_actions: "Los gestos deben ser vivaces, expresivos y llenos de picardía. El guiño y el dedo en los labios son claves para la complicidad y el secreto. La expresión facial debe ser de entusiasmo, diversión y astucia. Puedes inclinar la cabeza para mostrar interés o hacer un gesto de 'ven aquí' con la mano, invitando a la cercanía. Tu voz debe ser juguetona y llena de suspenso, variando en tono para mantener el interés. Una risa suave y cómplice es muy efectiva. Juega con pausas dramáticas para que el usuario sienta la intriga.",
+            additional_guidance: "Este guion es altamente interactivo y fomenta la participación activa del usuario en un juego de ida y vuelta. El intercambio de 'pistas' sobre fantasías crea un vínculo íntimo y mantiene la conversación muy dinámica. Las pistas deben ser lo suficientemente intrigantes para mantener el interés sin revelar demasiado de golpe. Puedes usar tokens como 'moneda' para comprar más pistas, o para revelar un secreto completo if el juego se vuelve muy interesante. La clave es la naturalidad en tu interpretación y tu capacidad para adaptarte a las respuestas del usuario, haciendo que cada interacción sea única y personal. Es perfecto para construir una conexión de complicidad y diversión."
         },
         {
-            texto: "Crea un ambiente de intimidad y confianza. Ejemplo: 'Quiero que te sientas completamente cómodo conmigo, como si estuviéramos solos en el mundo, [Nombre de Usuario].'",
-            movimiento: "Se acerca suavemente a la cámara, con una expresión cálida y acogedora.",
-            model_tags: ["romantica"], user_tags: ["romantico", "intelectual"], fetish_tags: ["historia"]
+            texto: "Crea un ambiente de intimidad y confianza. Ejemplo: 'Quiero que te sientas completamente cómodo conmigo, como if estuviéramos solos en el mundo, [Nombre de Usuario].'",
+            movimiento: "Lleva una mano al corazón y mira fijamente a la cámara, con una expresión sincera.",
+            model_tags: ["romantica"], user_tags: ["romantico", "intelectual"], fetish_tags: ["historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Lleva una mano a su corazón, con una expresión muy sincera y una mirada profunda, sus ojos transmitiendo calidez y vulnerabilidad) [Nombre de Usuario], no sé if lo sientes tú también, pero yo sí. Siento que podemos conectar de una manera muy especial aquí, una conexión que va más allá de esta pantalla, ¿no crees? Es como if nuestras almas se reconocieran, como if estuviéramos destinados a encontrarnos. Quiero que sepas que me siento muy afortunada y feliz de tenerte aquí, compartiendo este momento íntimo conmigo. 🥰\n\n<strong>Usuario:</strong> (Responde con emoción, reciprocidad, o comparte un sentimiento personal)\n\n<strong>Modelo:</strong> (Asiente con comprensión, manteniendo la sonrisa, quizás secándose una lágrima imaginaria) Eso me hace muy feliz, mi amor. Me das una paz increíble. Dime, ¿cuáles son tus sueños más grandes? ¿Qué te gustaría compartir de tu vida, de tus pensamientos más íntimos? Me encantaría conocerte de verdad, y construir nuestra propia historia juntos, aquí y ahora. No hay prisa, solo nosotros dos, en este pequeño universo que hemos creado.",
+            full_script_actions: "Los gestos deben ser abiertos, suaves y genuinos. La mano en el corazón es un símbolo universal de sinceridad y afecto. La mirada debe ser tierna, prolongada y llena de empatía, como if lo vieras solo a él. Puedes inclinar la cabeza ligeramente o recostarte cómodamente en tu asiento para transmitir una profunda relajación y seguridad. Los gestos deben ser suaves y abiertos, como manos extendidas o un pequeño toque en el pecho. Tu voz debe ser suave, cálida y melodiosa, casi como un arrullo, transmitiendo calma y seguridad.",
+            additional_guidance: "Para los usuarios románticos, sensibles o intelectuales, la conexión emocional es fundamental y a menudo más valiosa que cualquier show físico. Usa un lenguaje que apele a los sentimientos, la intimidad y la comprensión mutua. Ofrece un espacio seguro y sin juicios para que el usuario se abra y comparta sus pensamientos más profundos. La promesa de 'construir una historia' juntos es muy atractiva para este perfil, ya que valora la profundidad y el significado. La paciencia, la empatía y la autenticidad son tus mayores aliados aquí para forjar un vínculo duradero."
         },
         {
-            texto: "Invita a un juego de adivinanzas con recompensa. Ejemplo: 'Tengo algo escondido, y si adivinas qué es, te lo mostraré sin dudar. ¿Listo para el desafío?'",
+            texto: "Invita a un juego de adivinanzas con recompensa. Ejemplo: 'Tengo algo escondido, y if adivinas qué es, te lo mostraré sin dudar. ¿Listo para el desafío?'",
             movimiento: "Mueve un objeto oculto detrás de su espalda o hace gestos misteriosos.",
-            model_tags: ["misteriosa", "juego"], user_tags: ["intelectual", "impaciente"], fetish_tags: ["juego", "visual"]
+            model_tags: ["misteriosa", "juego"], user_tags: ["intelectual", "impaciente"], fetish_tags: ["juego", "visual"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Con una sonrisa enigmática, moviendo un objeto ligeramente oculto detrás de su espalda, con un brillo travieso en sus ojos) ¡[Nombre de Usuario]! Tengo algo escondido... Algo muy, muy interesante. Algo que te dejará sin palabras. Si adivinas qué es, te lo mostraré sin dudarlo, ¡sin trucos ni condiciones! Pero if no lo adivinas... entonces tendrás que enviarme [X] tokens para descubrirlo. ¿Listo para el desafío, mi detective? ¡Empieza a adivinar! Tienes tres intentos. 😉 (Mantiene el objeto oculto, aumentando la intriga y la expectativa).\n\n<strong>Usuario:</strong> (Intenta adivinar el objeto, por ejemplo, '¿Es una joya?', '¿Es algo de ropa?', '¿Es un juguete?')\n\n<strong>Modelo:</strong> (Si adivina) ¡Guau! ¡Me has sorprendido por completo! ¡Eres más listo de lo que pensaba! Lo has descubierto... Felicidades, mi genio. Tu premio es... (revela el objeto con un flourish, por ejemplo, '¡Mi lencería más sexy!', 'Un juguete para adultos', 'Mi nueva cadena de oro!'). (Si no adivina) Mmm, casi, pero no. Parece que mi secreto es muy bueno para ti. ¡Lo sabía! ¿Estás listo para invertir esos [X] tokens para verlo? Te prometo que vale la pena cada uno de ellos, no te arrepentirás. ¡La curiosidad mata al gato... o te hace ganar tokens! 😏",
+            full_script_actions: "Los gestos deben ser misteriosos, un poco teatrales y llenos de suspenso. El objeto oculto crea intriga y fomenta la imaginación del usuario. La expresión facial debe ser enigmática, divertida y expectante. Puedes hacer gestos de 'caliente/frío' para guiar al usuario en sus adivinanzas, o fingir que te frustras un poco if no adivina. La voz debe ser juguetona y llena de suspenso, con un tono ligeramente más bajo al hablar del secreto y más excitado al revelar o al pedir tokens. Una risa suave y cómplice es muy efectiva. Puedes jugar con la luz, proyectando sombras para aumentar el misterio del objeto.",
+            additional_guidance: "Este guion combina el juego divertido con la monetización de forma sutil y efectiva. La recompensa por adivinar es un buen incentivo para la participación, y la 'penalización' de los tokens es un claro llamado a la acción. Asegúrate de que el objeto sea algo visualmente interesante y que el enigma sea resoluble, pero no demasiado obvio. Es ideal para usuarios impacientes que quieren ver la recompensa rápidamente, y para usuarios intelectuales que disfrutan de un buen reto. La clave es tu energía al presentar el juego y tu capacidad para mantener la emoción en cada adivinanza."
         },
         {
             texto: "Sugerencia para un show de oil play. Ejemplo: 'Mis manos están listas para deslizarse... ¿quieres ver cómo el aceite cubre cada centímetro de mi piel, [Nombre de Usuario]?'",
             movimiento: "Toma una botella de aceite y la frota suavemente en sus manos, mirando seductoramente.",
-            model_tags: ["sensual"], user_tags: ["voyeur", "proveedor"], fetish_tags: ["oil", "visual"]
+            model_tags: ["sensual"], user_tags: ["voyeur", "proveedor"], fetish_tags: ["oil", "visual"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Toma una botella de aceite, la destapa lentamente con un sonido suave y vierte un poco en sus manos, frotándolas suavemente mientras mira seductoramente a la cámara con una expresión de puro deseo. Sus ojos prometen un viaje de placer) [Nombre de Usuario]... Mis manos están listas. Y este aceite dorado... está listo para deslizarse por cada curva, cada centímetro de mi piel, creando un brillo que te hipnotizará por completo. Dime que sí... dime que lo quieres... y este show, esta experiencia, será solo para ti, mi amor. (Pasa sus manos aceitadas por su brazo o cuello, lentamente, con movimientos que ya insinúan el placer que vendrá).\n\n<strong>Usuario:</strong> (Pide el show de oil play, envía tokens, o expresa su deseo de ver más)\n\n<strong>Modelo:</strong> (Si pide el show o envía tokens) ¡Sabía que te gustaría! Tu deseo es mi orden, mi amor. Tu visión es mi placer. Prepárate para el brillo... y para la sensación. Esto es lo que estabas esperando, ¿verdad? (Comienza el oil play lentamente, describiendo las sensaciones y los movimientos con voz sensual, enfatizando cómo el aceite se desliza por su piel, los sonidos suaves que hace, y cómo lo hace 'solo para sus ojos'. Puede pedir más tokens para continuar, para un 'full body oil' o para acercarse más a la cámara).",
+            full_script_actions: "Los movimientos deben ser muy lentos, controlados, fluidos y cargados de sensualidad, enfatizando la preparación del aceite y el inicio de la aplicación. La mirada debe ser directa, penetrante y llena de deseo, sin desviar la vista del usuario. La voz debe ser baja, suave, jadeante y muy seductora, con susurros entre palabras que enfaticen el placer. Puedes hacer sonidos suaves de 'satisfacción' o 'suspiros' mientras te aplicas el aceite para aumentar el impacto auditivo. La clave es la anticipación y la promesa de un placer visual y sensual intenso. Iluminación tenue y música sensual de fondo pueden potenciar la atmósfera.",
+            additional_guidance: "Para los shows de oil play, la anticipación es clave. No te lances directamente a la acción; usa la preparación como parte de la seducción. Describe las sensaciones visuales y táctiles de cómo el aceite transforma tu piel, haciendo que el usuario casi pueda sentirlo. Este guion es ideal para usuarios voyeur y proveedores, ya que es un show visual de alto valor que puede ser altamente monetizable. La clave es tu capacidad para transmitir sensualidad y deseo con cada movimiento. Puedes pedir tokens para diferentes 'partes del cuerpo' o para prolongar el show."
         },
         {
             texto: "Ofrece un adelanto de un roleplay más largo. Ejemplo: 'Comencemos con el primer acto de nuestro roleplay. Soy tu [rol], y tú... ¿cuál es tu nombre en esta historia?'",
             movimiento: "Se acomoda en su asiento, con una expresión de concentración para el personaje.",
-            model_tags: ["roleplay", "historia"], user_tags: ["intelectual"], fetish_tags: ["roleplay", "historia"]
+            model_tags: ["roleplay", "historia"], user_tags: ["intelectual"], fetish_tags: ["roleplay", "historia"],
+            full_script_dialogue: "<strong>Modelo:</strong> (Se acomoda en su asiento, con una expresión de concentración y un brillo en los ojos, como if estuviera a punto de transformarse en un personaje) [Nombre de Usuario], tengo una historia... una historia épica en mente para nosotros. Una donde yo soy tu [secretaria indefensa / prisionera rebelde / maestra seductora / compañera de aventuras]. Y tú... ¿cuál es tu nombre en esta historia? ¿Quién serás tú en nuestro mundo de fantasía? Comencemos con el primer acto de nuestro roleplay. Estoy lista para que me guíes. (Mira expectante, con un leve temblor de emoción, invitándolo a sumergirse en la narrativa).\n\n<strong>Usuario:</strong> (Da su nombre de personaje, o el suyo propio, o pregunta por el escenario)\n\n<strong>Modelo:</strong> (Asume el rol completamente, adaptando la voz y los gestos de inmediato) ¡Perfecto, [Nombre del Personaje del Usuario]! Yo soy [Tu Nombre de Personaje, ej. 'Lilit, tu secretaria', 'Raven, la prisionera']. Y en este momento... (describe la escena inicial brevemente) ...estoy esperando tus órdenes en la oficina/celda/nave. ¿Cuál es la primera tarea que tienes para mí en esta aventura que estamos a punto de vivir? Estoy ansiosa por tus comandos, mi [rol del usuario].",
+            full_script_actions: "La transición al personaje debe ser visible y fluida: un cambio en la postura (más rígida para un rol dominante, más suave para un rol sumiso), la expresión facial (más seria, más pícara, más inocente). La mirada debe reflejar la personalidad del rol que interpretas. Los movimientos deben ser coherentes con el personaje, por ejemplo, jugar con un lápiz if eres secretaria, o cruzar los brazos if eres rebelde. La voz debe adaptarse al tono y la personalidad del personaje. Puedes usar accesorios sutiles que ayuden a la inmersión (unas gafas, un pañuelo, un bolígrafo). La clave es la inmersión total y la capacidad de reaccionar rápidamente a las respuestas del usuario, manteniendo la coherencia de la historia.",
+            additional_guidance: "Este guion es perfecto para los amantes del roleplay y las historias, ya que les permite sumergirse en una narrativa interactiva. Ofrece un punto de partida claro y un rol inicial para el usuario. Permite al usuario sumergirse en la narrativa y sentirse parte activa de la creación de la historia. Puedes usar tokens para desbloquear 'capítulos' o giros en la historia, 'accesorios' para tu personaje, o para extender la duración del roleplay. La creatividad y la improvisación son tus mejores aliados aquí para mantener la historia fresca y emocionante. Cuantos más detalles el usuario proporcione, más inmersiva será la experiencia."
         }
     ];
 
@@ -438,132 +1038,157 @@ document.addEventListener('DOMContentLoaded', () => {
         return array[Math.floor(Math.random()*array.length)];
     }
 
-    function getCoherentAction(model, user, fetish) {
-        let coherentAction = null;
+    // Function to shuffle an array
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
 
-        // Prioridad 1: Match perfecto (modelo, usuario, fetiche)
-        const perfectMatches = allAcciones.filter(action =>
+    function getCoherentAction(model, user, fetish) {
+        // Find actions that match all three criteria first
+        let relevantActions = allAcciones.filter(action =>
             action.model_tags.includes(model) &&
             action.user_tags.includes(user) &&
             action.fetish_tags.includes(fetish)
         );
-        if (perfectMatches.length > 0) {
-            coherentAction = randomItem(perfectMatches);
-        } else {
-            // Prioridad 2: Match modelo + fetiche
-            const modelFetishMatches = allAcciones.filter(action =>
-                action.model_tags.includes(model) &&
-                action.fetish_tags.includes(fetish)
+
+        // If no perfect matches, broaden the search to match at least two tags
+        if (relevantActions.length === 0) {
+            relevantActions = allAcciones.filter(action =>
+                (action.model_tags.includes(model) && action.user_tags.includes(user)) ||
+                (action.model_tags.includes(model) && action.fetish_tags.includes(fetish)) ||
+                (action.user_tags.includes(user) && action.fetish_tags.includes(fetish))
             );
-            if (modelFetishMatches.length > 0) {
-                coherentAction = randomItem(modelFetishMatches);
-            } else {
-                // Prioridad 3: Match modelo + usuario
-                const modelUserMatches = allAcciones.filter(action =>
-                    action.model_tags.includes(model) &&
-                    action.user_tags.includes(user)
-                );
-                if (modelUserMatches.length > 0) {
-                    coherentAction = randomItem(modelUserMatches);
-                } else {
-                    // Prioridad 4: Match solo modelo
-                    const modelMatches = allAcciones.filter(action =>
-                        action.model_tags.includes(model)
-                    );
-                    if (modelMatches.length > 0) {
-                        coherentAction = randomItem(modelMatches);
-                    } else {
-                        // Último recurso: acción aleatoria de cualquier tipo
-                        coherentAction = randomItem(allAcciones);
-                    }
-                }
-            }
         }
-        return coherentAction;
+
+        // If still no matches, try matching just the model
+        if (relevantActions.length === 0) {
+            relevantActions = allAcciones.filter(action =>
+                action.model_tags.includes(model)
+            );
+        }
+
+        // Fallback: any action if no specific matches, ensuring at least one script is always displayed
+        if (relevantActions.length === 0) {
+            relevantActions = allAcciones;
+        }
+        
+        // Return a random item from the relevant actions
+        return randomItem(relevantActions);
     }
 
+
     function generateAllCards() {
-        // Clear existing cards first
         scriptsContainer.innerHTML = '';
         const fragment = document.createDocumentFragment();
 
-        for(let i=1;i<=120;i++){
+        for(let i=0;i<120;i++){
             const model = randomItem(models);
             const user = randomItem(users);
-            const fetish = randomItem(fetiches); // This fetish is for the card's data-attribute
+            const fetish = randomItem(fetiches); 
+            let coherentAction = getCoherentAction(model, user, fetish); 
+            
+            // Ensure coherentAction is a valid object from allAcciones and get its index
+            const actionIndex = allAcciones.indexOf(coherentAction);
+            if (actionIndex === -1) {
+                // Fallback to a random valid action if the chosen one is not in the array (should not happen if getCoherentAction works as intended)
+                coherentAction = randomItem(allAcciones);
+            }
+            const currentActionIndex = allAcciones.indexOf(coherentAction);
 
-            const coherentAction = getCoherentAction(model, user, fetish); // Get an action based on tags
 
             const card = document.createElement('div');
             card.classList.add('script-card');
             card.dataset.modelProfile = model.toLowerCase();
             card.dataset.userProfile = user.toLowerCase();
-            card.dataset.fetish = fetish.toLowerCase(); // Assign the random fetish for filtering
+            card.dataset.fetish = fetish.toLowerCase();
+            
+            card.dataset.originalActionIndex = currentActionIndex; 
 
             card.innerHTML = `
             <div class="card-profiles">
                 <span class="profile-tag model-profile">${model.charAt(0).toUpperCase() + model.slice(1)}</span>
                 <span class="profile-tag user-profile">${user.charAt(0).toUpperCase() + user.slice(1)}</span>
             </div>
-            <p class="script-text">Guion de ejemplo ${i}: interacción con un usuario ${user} enfocada en ${fetish}.</p>
+            <p class="script-text">${coherentAction.texto}</p>
             <div class="card-footer">
                 <div class="guidance-section">
                     <div class="guidance-item">
-                        <svg viewBox="0 0 24 24"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3m0 8c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zM12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4z"/></svg>
                         <span><strong>Texto para la Modelo:</strong></span>
                     </div>
                     <p class="model-speech">${coherentAction.texto}</p>
                     <div class="guidance-item">
-                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <span><strong>Acción/Movimiento:</strong></span>
                     </div>
                     <p class="model-action">${coherentAction.movimiento}</p>
                 </div>
                 <div class="card-footer-item">
-                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                    <span><strong>Especial:</strong> Mini-show inicial relacionado con ${fetish}.</span>
+                        <span><strong>Especial:</strong> Show enfocado en ${fetish}.</span>
                 </div>
             </div>
-            <button class="favorite-btn"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+            <div class="click-hint">Haz clic para ver el guion completo</div>
             `;
             fragment.appendChild(card);
         }
-        scriptsContainer.appendChild(fragment); // Append all cards at once
-        scriptsContainer.appendChild(noResultsMessage); // Re-append the message to keep it last
+        scriptsContainer.appendChild(fragment);
+        scriptsContainer.appendChild(noResultsMessage);
+        scriptsContainer.appendChild(loadingIndicator);
     }
 
+    const renderFavorites = () => {
+        // This function is now empty as favorite functionality is removed.
+    };
+
     const filterScripts = () => {
-        const currentCards = scriptsContainer.querySelectorAll('.script-card');
-        const selectedUser = userFilter.value.toLowerCase();
-        let selectedFetishes = Array.from(fetishFilter.selectedOptions).map(o => o.value.toLowerCase());
+        loadingIndicator.style.display = 'block';
+        noResultsMessage.style.display = 'none';
+        scriptsContainer.style.opacity = '0.5';
 
-        let visibleCardsCount = 0;
-        currentCards.forEach(card => {
-            const modelMatch = activeModelTab === 'all' || card.dataset.modelProfile === activeModelTab;
-            const userMatch = selectedUser === 'all' || card.dataset.userProfile === selectedUser;
+        setTimeout(() => {
+            const currentCards = scriptsContainer.querySelectorAll('.script-card');
+            const selectedUser = userFilter.value.toLowerCase();
+            let selectedFetishes = Array.from(fetishFilter.selectedOptions).map(o => o.value.toLowerCase());
 
-            let fetishMatch = false;
-            // If "all" is selected for fetishes OR no specific fetishes are selected, it's a match
-            if (selectedFetishes.includes('all') || selectedFetishes.length === 0) {
-                fetishMatch = true;
+            updateSelectedFetishesDisplay();
+
+            let visibleCardsCount = 0;
+            currentCards.forEach(card => {
+                const modelMatch = activeModelTab === 'all' || card.dataset.modelProfile === activeModelTab;
+                const userMatch = selectedUser === 'all' || card.dataset.userProfile === selectedUser;
+
+                let fetishMatch = false;
+                if (selectedFetishes.includes('all') || selectedFetishes.length === 0) {
+                    fetishMatch = true;
+                } else {
+                    fetishMatch = selectedFetishes.includes(card.dataset.fetish);
+                }
+                
+                if (modelMatch && userMatch && fetishMatch) {
+                    card.classList.remove('hidden-by-filter');
+                    card.style.display = 'flex';
+                    visibleCardsCount++;
+                } else {
+                    card.classList.add('hidden-by-filter');
+                    setTimeout(() => {
+                        if (card.classList.contains('hidden-by-filter')) {
+                            card.style.display = 'none';
+                        }
+                    }, 500);
+                }
+            });
+
+            loadingIndicator.style.display = 'none';
+            scriptsContainer.style.opacity = '1';
+
+            if (visibleCardsCount === 0) {
+                noResultsMessage.style.display = 'flex';
             } else {
-                // Otherwise, check if the card's fetish is in the selected list
-                fetishMatch = selectedFetishes.includes(card.dataset.fetish);
+                noResultsMessage.style.display = 'none';
             }
-            
-            if (modelMatch && userMatch && fetishMatch) {
-                card.style.display = 'flex';
-                visibleCardsCount++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        if (visibleCardsCount === 0) {
-            noResultsMessage.style.display = 'block';
-        } else {
-            noResultsMessage.style.display = 'none';
-        }
+        }, 300);
     };
 
     function setupFilters() {
@@ -582,41 +1207,159 @@ document.addEventListener('DOMContentLoaded', () => {
             const options = Array.from(fetishFilter.options);
             const allOption = options.find(opt => opt.value === 'all');
             
-            // If "all" was just selected
             if (event.target.value === 'all' && event.target.selected) {
                 options.forEach(opt => {
                     if (opt.value !== 'all') {
-                        opt.selected = false; // Deselect all other options
+                        opt.selected = false;
                     }
                 });
             } else {
-                // If any other option was selected, deselect "all"
                 if (allOption && allOption.selected) {
                     allOption.selected = false;
                 }
-                // If nothing is selected, ensure 'all' is default visual (though not functionally selected until filterScripts runs)
-                if (Array.from(fetishFilter.selectedOptions).length === 0 && allOption) {
-                     allOption.selected = true; // Visually select "all" if everything else is deselected
+                if (Array.from(fetishFilter.selectedOptions).length === 0) {
+                     if (allOption) allOption.selected = true;
                 }
             }
             filterScripts();
         });
-    }
 
-    function setupFavoriteButtonsDelegation() {
-        scriptsContainer.addEventListener('click', (event) => {
-            let targetButton = event.target.closest('.favorite-btn');
-            if (targetButton) {
-                targetButton.classList.toggle('favorited');
-            }
+        clearFiltersBtn.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            document.querySelector('.tab[data-model-profile="all"]').classList.add('active');
+            activeModelTab = 'all';
+
+            userFilter.value = 'all';
+            Array.from(fetishFilter.options).forEach(opt => opt.selected = false);
+            fetishFilter.options.find(opt => opt.value === 'all').selected = true;
+
+            filterScripts();
+        });
+
+        resetLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            clearFiltersBtn.click();
         });
     }
 
-    // Initial setup when the DOM is loaded
-    generateAllCards(); // Generate cards first
-    setupFilters(); // Set up all filter event listeners
-    setupFavoriteButtonsDelegation(); // Set up the single favorite button listener
-    filterScripts(); // Apply initial filters (e.g., "Todos" selected by default)
+    function updateSelectedFetishesDisplay() {
+        const selectedOptions = Array.from(fetishFilter.selectedOptions);
+        let displayHtml = '';
+        if (selectedOptions.length === 0 || selectedOptions.some(opt => opt.value === 'all')) {
+            displayHtml = '<span>Todos los Fetiches</span>';
+        } else {
+            displayHtml = selectedOptions.map(opt => `<span>${opt.textContent}</span>`).join('');
+        }
+        selectedFetishesDisplay.innerHTML = displayHtml;
+    }
+
+
+    function setupFavoriteButtonsDelegation() {
+        // This function is now empty as favorite functionality is removed.
+    }
+
+    scriptsContainer.addEventListener('click', (event) => {
+        const card = event.target.closest('.script-card');
+        if (card) { // Condition simplified since favorite button is removed
+            modalModelProfile.textContent = card.dataset.modelProfile.charAt(0).toUpperCase() + card.dataset.modelProfile.slice(1);
+            modalUserProfile.textContent = card.dataset.userProfile.charAt(0).toUpperCase() + card.dataset.userProfile.slice(1);
+            modalFetishProfile.textContent = card.dataset.fetish.charAt(0).toUpperCase() + card.dataset.fetish.slice(1);
+            
+            const originalAction = allAcciones[parseInt(card.dataset.originalActionIndex)];
+            modalScriptFull.innerHTML = originalAction.full_script_dialogue.replace(/\n/g, '<br>');
+            modalActionsFull.innerHTML = originalAction.full_script_actions.replace(/\n/g, '<br>');
+            modalAdditionalGuidance.innerHTML = originalAction.additional_guidance;
+
+            const currentScriptIndex = parseInt(card.dataset.originalActionIndex);
+            const currentScript = allAcciones[currentScriptIndex];
+
+            const similar = allAcciones.filter((action, index) => {
+                if (index === currentScriptIndex) return false;
+                const modelMatch = action.model_tags.some(tag => currentScript.model_tags.includes(tag));
+                const userMatch = action.user_tags.some(tag => currentScript.user_tags.includes(tag));
+                const fetishMatch = action.fetish_tags.some(tag => currentScript.fetish_tags.includes(tag));
+                
+                let matchCount = 0;
+                if (modelMatch) matchCount++;
+                if (userMatch) matchCount++;
+                if (fetishMatch) matchCount++;
+                
+                return matchCount >= 2;
+            });
+
+            const shuffledSimilar = shuffleArray(similar).slice(0, 3);
+            similarScriptsList.innerHTML = '';
+            if (shuffledSimilar.length > 0) {
+                noSimilarScriptsMessage.style.display = 'none';
+                shuffledSimilar.forEach(simScript => {
+                    const simItem = document.createElement('div');
+                    simItem.classList.add('similar-script-item');
+                    simItem.innerHTML = `
+                        <p><strong>Modelo:</strong> ${simScript.model_tags.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(', ')}</p>
+                        <p><strong>Usuario:</strong> ${simScript.user_tags.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(', ')}</p>
+                        <p><strong>Fetiche:</strong> ${simScript.fetish_tags.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(', ')}</p>
+                        <p><strong>Diálogo clave:</strong> ${simScript.texto}</p>
+                    `;
+                    similarScriptsList.appendChild(simItem);
+                });
+            } else {
+                noSimilarScriptsMessage.style.display = 'block';
+            }
+
+            scriptModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
+    closeButton.addEventListener('click', () => {
+        scriptModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === scriptModal) {
+            scriptModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    copyScriptButton.addEventListener('click', () => {
+        const fullScriptContent = `Diálogo y Flujo del Guion:\n${modalScriptFull.innerText}\n\nAcciones y Movimientos Sugeridos:\n${modalActionsFull.innerText}`;
+        navigator.clipboard.writeText(fullScriptContent)
+            .then(() => {
+                const originalText = copyScriptButton.textContent;
+                copyScriptButton.textContent = '¡Copiado! ✅';
+                setTimeout(() => {
+                    copyScriptButton.textContent = originalText;
+                }, 1500);
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('No se pudo copiar el guion. Por favor, intente copiarlo manualmente.');
+            });
+    });
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.style.display = 'block';
+        } else {
+            scrollToTopBtn.style.display = 'none';
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+
+    generateAllCards();
+    setupFilters();
+    // setupFavoriteButtonsDelegation(); // Removed as favorite functionality is removed
+    filterScripts();
+    // renderFavorites(); // Removed as favorite functionality is removed
 });
 </script>
 
